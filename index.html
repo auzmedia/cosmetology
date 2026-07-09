@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Beauty | Премиальная косметология</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        :root {
+            --primary: #c5a059; /* Золотой/Песочный */
+            --secondary: #2d2d2d;
+            --accent: #f4e8d8;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --text-main: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #faf9f6;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Helpers */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section { padding: 100px 0; }
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: #b08d4b; transform: translateY(-5px); }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-links a { margin-left: 30px; text-decoration: none; color: var(--secondary); font-weight: 600; font-size: 14px; }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1595959183084-9eba73e51a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 { font-size: 5rem; margin-bottom: 20px; }
+
+        /* Services Grid */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card i { font-size: 40px; color: var(--primary); margin-bottom: 20px; }
+
+        /* About Section */
+        .about { display: flex; align-items: center; gap: 50px; }
+        .about-img { flex: 1; border-radius: 20px; overflow: hidden; }
+        .about-content { flex: 1; }
+
+        /* Form */
+        .form-section { background: var(--secondary); color: white; padding: 100px 0; }
+        .form-group { margin-bottom: 20px; }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 0.8s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .about { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav">
+            <div class="logo" style="font-family: 'Playfair Display'; font-size: 24px; font-weight: 700;">AURA</div>
+            <nav class="nav-links">
+                <a href="#services">Услуги</a>
+                <a href="#about">О нас</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container reveal">
+            <h1>Искусство вашей красоты</h1>
+            <p>Премиальная косметология с доказанной эффективностью</p>
+            <br>
+            <a href="#contact" class="btn">Записаться на прием</a>
+        </div>
+    </section>
+
+    <section class="section container" id="services">
+        <h2 style="text-align: center; margin-bottom: 50px;">Наши услуги</h2>
+        <div class="grid-3 reveal">
+            <div class="card"><i class="fas fa-magic"></i><h3>Лазерная терапия</h3><p>Омоложение кожи без хирургического вмешательства.</p></div>
+            <div class="card"><i class="fas fa-gem"></i><h3>Контурная пластика</h3><p>Безупречные черты лица и четкий овал.</p></div>
+            <div class="card"><i class="fas fa-spa"></i><h3>Уходовые программы</h3><p>Индивидуальные протоколы для сияния кожи.</p></div>
+        </div>
+    </section>
+
+    <section class="section container about" id="about">
+        <div class="about-img reveal">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=800&q=80" style="width:100%; border-radius:20px;" alt="Clinic">
+        </div>
+        <div class="about-content reveal">
+            <h2>О нашей клинике</h2>
+            <p>Мы объединяем передовые научные разработки и эстетическое совершенство. Более 10 лет мы помогаем нашим клиентам обрести уверенность и подчеркнуть естественную красоту.</p>
+        </div>
+    </section>
+
+    <section class="form-section" id="contact">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px; color: white;">Записаться на консультацию</h2>
+            <form style="max-width: 600px; margin: 0 auto;">
+                <div class="form-group"><input type="text" placeholder="Ваше имя"></div>
+                <div class="form-group"><input type="tel" placeholder="Номер телефона"></div>
+                <div class="form-group"><textarea rows="4" placeholder="Ваш комментарий"></textarea></div>
+                <button type="submit" class="btn" style="width: 100%;">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; background: #fdfdfd;">
+        <p>&copy; 2026 Aura Beauty. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Анимация при скролле
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // Инициализация при загрузке
+        window.onload = reveal;
+    </script>
+</body>
+</html>

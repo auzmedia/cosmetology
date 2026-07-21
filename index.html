@@ -1804,12 +1804,11 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwo5iiRnNoynzyAd5wkty2SxjGFNSwrmwmi8bJwO3UHLBFu4Vb-U9M3XeQO0wUuM-c/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGyV0jEjfiTN_wBtgqlM8zgtWJ92HSx7535JsNMnxdz810nRql7pfL9EY4UqGELMI/exec';
 
             // ----- Вспомогательная функция для получения текущего времени в Бишкеке (UTC+6) -----
             function getBishkekTime() {
                 const now = new Date();
-                // UTC+6
                 const offset = 6;
                 const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
                 return localTime;
@@ -1862,6 +1861,27 @@
                 }
             }
 
+            // ----- Проверка, является ли дата выходным (из листа Holidays) -----
+            async function isHoliday(date) {
+                try {
+                    const url = SCRIPT_URL + '?action=holiday&date=' + encodeURIComponent(date) + '&_=' + Date.now();
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    if (!response.ok) return false;
+                    const data = await response.json();
+                    return data.isHoliday === true;
+                } catch (error) {
+                    console.warn('Ошибка проверки праздника:', error);
+                    return false;
+                }
+            }
+
             // ----- Обновление списка времени -----
             async function updateTimeSlots() {
                 const date = dateInput.value;
@@ -1870,6 +1890,19 @@
                     timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') +
                         '</option>';
                     return;
+                }
+
+                // Проверяем, праздник ли это
+                const holiday = await isHoliday(date);
+                if (holiday) {
+                    timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') +
+                        '</option>';
+                    msgDiv.className = 'form-message error';
+                    msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
+                    return;
+                } else {
+                    msgDiv.className = '';
+                    msgDiv.style.display = 'none';
                 }
 
                 const bishkekNow = getBishkekTime();
@@ -1888,7 +1921,7 @@
                     });
                 }
 
-                // Запрашиваем занятые слоты
+                // Запрашиваем занятые слоты для выбранного врача
                 const booked = await fetchBookedSlots(date, doctor);
                 const available = slots.filter(time => !booked.includes(time));
 
@@ -2001,7 +2034,6 @@
                             document.getElementById('comment').value = '';
 
                             // Обновляем список слотов (убираем только что занятое время)
-                            // Делаем это дважды с задержкой, чтобы данные успели обновиться на сервере
                             setTimeout(() => {
                                 updateTimeSlots();
                             }, 500);

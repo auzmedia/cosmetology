@@ -34,7 +34,6 @@
             --radius: 24px;
         }
 
-        /* ===== RESET ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -48,7 +47,6 @@
         img { max-width: 100%; display: block; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* ===== Buttons ===== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -80,9 +78,7 @@
             color: var(--blue);
             border: 2px solid var(--blue);
         }
-        .btn--outline:hover {
-            background: var(--blue-bg);
-        }
+        .btn--outline:hover { background: var(--blue-bg); }
         .btn--small { padding: 10px 20px; font-size: 0.9rem; }
         .btn--full { width: 100%; }
         .btn--select {
@@ -105,7 +101,6 @@
             transform: none !important;
         }
 
-        /* ===== Language Selector ===== */
         .lang-selector {
             position: fixed;
             top: 20px;
@@ -136,7 +131,6 @@
         .lang-selector select:hover { background: var(--blue-bg); }
         .lang-selector .lang-icon { font-size: 1.2rem; }
 
-        /* ===== Header ===== */
         .header {
             background: var(--header-bg);
             backdrop-filter: blur(12px);
@@ -184,7 +178,6 @@
             transition: all 0.3s;
         }
 
-        /* ===== Hero ===== */
         .hero {
             padding: 60px 0 80px;
             position: relative;
@@ -280,7 +273,6 @@
         .deco-2 { width: 150px; height: 150px; bottom: -30px; left: -40px; background: var(--blue-light); }
         .deco-3 { width: 80px; height: 80px; top: 40%; right: -20px; background: var(--blue-light); }
 
-        /* ===== Advantages ===== */
         .advantages {
             padding: 60px 0;
             background: var(--bg-secondary);
@@ -332,7 +324,6 @@
         .advantage-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
         .advantage-card p { font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* ===== About ===== */
         .about {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -384,7 +375,6 @@
         }
         .about__experience strong { display: block; font-size: 1.1rem; }
 
-        /* ===== Price List ===== */
         .price-list {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -451,7 +441,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== Doctors ===== */
         .doctors {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -486,7 +475,6 @@
         .doctor-card__exp { font-size: 0.85rem; color: var(--text-secondary); margin: 8px 0; }
         .doctor-card__rating { font-weight: 600; color: #eab308; margin-bottom: 12px; }
 
-        /* ===== Video Carousel ===== */
         .video-carousel {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -522,7 +510,6 @@
             font-weight: 700;
         }
 
-        /* ===== Booking ===== */
         .booking {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -638,7 +625,6 @@
         .phone-wrapper input:focus { box-shadow: none !important; }
         .required { color: #dc2626; }
 
-        /* ===== Contacts ===== */
         .contacts {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -674,7 +660,6 @@
             box-shadow: var(--shadow);
         }
 
-        /* ===== Footer ===== */
         .footer {
             background: var(--footer-bg);
             color: var(--footer-text);
@@ -735,7 +720,6 @@
             gap: 8px;
         }
 
-        /* ===== Responsive ===== */
         @media (max-width: 992px) {
             .hero__inner { flex-direction: column; text-align: center; }
             .hero__subtitle { margin-left: auto; margin-right: auto; }
@@ -792,7 +776,6 @@
     </style>
 </head>
 <body>
-    <!-- Языковой переключатель -->
     <div class="lang-selector">
         <span class="lang-icon">🌐</span>
         <select id="langSelect">
@@ -802,7 +785,6 @@
         </select>
     </div>
 
-    <!-- Шапка -->
     <header class="header" role="banner">
         <div class="container header__inner">
             <a href="#" class="logo" aria-label="Галерея улыбок - Главная">
@@ -825,7 +807,6 @@
         </div>
     </header>
 
-    <!-- Герой-блок -->
     <section class="hero" id="hero">
         <div class="container hero__inner">
             <div class="hero__content" data-aos="fade-right">
@@ -859,7 +840,6 @@
         </div>
     </section>
 
-    <!-- Преимущества -->
     <section class="advantages" id="advantages">
         <div class="container">
             <div class="section-label" data-aos="fade-up" data-lang="why_us">Почему мы</div>
@@ -899,7 +879,6 @@
         </div>
     </section>
 
-    <!-- О клинике -->
     <section class="about" id="about">
         <div class="container about__inner">
             <div class="about__content" data-aos="fade-right">
@@ -940,13 +919,11 @@
         </div>
     </section>
 
-    <!-- Полный прейскурант -->
     <section class="price-list" id="price">
         <div class="container">
             <div class="section-label" data-aos="fade-up" data-lang="prices_label">Цены</div>
             <h2 class="section-title" data-aos="fade-up" data-lang="prices_title">Прейскурант <span class="highlight">цен</span></h2>
 
-            <!-- Категория: Консультация и диагностика -->
             <div class="price-category" data-aos="fade-up">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-stethoscope"></i></span>
@@ -970,7 +947,6 @@
                 </div>
             </div>
 
-            <!-- Категория: Гигиена и профилактика -->
             <div class="price-category" data-aos="fade-up" data-aos-delay="100">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-spa"></i></span>
@@ -994,7 +970,6 @@
                 </div>
             </div>
 
-            <!-- Категория: Лечение кариеса -->
             <div class="price-category" data-aos="fade-up" data-aos-delay="200">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-tooth"></i></span>
@@ -1018,7 +993,6 @@
                 </div>
             </div>
 
-            <!-- Категория: Лечение корневых каналов -->
             <div class="price-category" data-aos="fade-up" data-aos-delay="300">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-bolt"></i></span>
@@ -1070,7 +1044,6 @@
                 </div>
             </div>
 
-            <!-- Категория: Протезирование -->
             <div class="price-category" data-aos="fade-up" data-aos-delay="400">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-crown"></i></span>
@@ -1129,7 +1102,6 @@
                 </div>
             </div>
 
-            <!-- Категория: Хирургия -->
             <div class="price-category" data-aos="fade-up" data-aos-delay="500">
                 <div class="price-category__header">
                     <span class="price-category__icon"><i class="fas fa-scalpel"></i></span>
@@ -1148,7 +1120,6 @@
         </div>
     </section>
 
-    <!-- Врачи -->
     <section class="doctors" id="doctors">
         <div class="container">
             <span class="section-label" data-aos="fade-up" data-lang="doctors_label">Врачи</span>
@@ -1206,7 +1177,6 @@
         </div>
     </section>
 
-    <!-- Видеоотзывы -->
     <section class="video-carousel" id="video-carousel">
         <div class="container">
             <span class="section-label" data-aos="fade-up" data-lang="video_label">Видеоотзывы</span>
@@ -1226,7 +1196,6 @@
         </div>
     </section>
 
-    <!-- Форма записи -->
     <section class="booking" id="booking">
         <div class="container booking__inner">
             <div class="booking__content" data-aos="fade-right">
@@ -1321,7 +1290,6 @@
         </div>
     </section>
 
-    <!-- Контакты -->
     <section class="contacts" id="contacts">
         <div class="container contacts__inner">
             <div class="contacts__info" data-aos="fade-right">
@@ -1347,7 +1315,6 @@
         </div>
     </section>
 
-    <!-- Футер -->
     <footer class="footer" role="contentinfo">
         <div class="container footer__inner">
             <div class="footer__brand">
@@ -1385,14 +1352,10 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">
-    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // ============================================================
-        //  ПЕРЕВОДЫ (kg — по умолчанию, ru, en)
-        // ============================================================
+        // ===== ПЕРЕВОДЫ (kg — по умолчанию, ru, en) =====
         const translations = {
             kg: {
                 logo: 'Галерея <span class="logo__highlight">жылмаюу</span>',
@@ -1744,9 +1707,7 @@
             }
         };
 
-        // ============================================================
-        //  ТЕКУЩИЙ ЯЗЫК
-        // ============================================================
+        // ===== ЯЗЫК =====
         let currentLang = localStorage.getItem('lang') || 'kg';
 
         function applyLanguage(lang) {
@@ -1779,14 +1740,10 @@
             });
         });
 
-        // ============================================================
-        //  AOS
-        // ============================================================
+        // ===== AOS =====
         AOS.init({ duration: 800, once: true, offset: 20 });
 
-        // ============================================================
-        //  БУРГЕР
-        // ============================================================
+        // ===== БУРГЕР =====
         document.querySelector('.burger').addEventListener('click', function() {
             const nav = document.querySelector('.nav');
             nav.classList.toggle('active');
@@ -1799,9 +1756,7 @@
             });
         });
 
-        // ============================================================
-        //  СТАТИСТИКА (анимация цифр)
-        // ============================================================
+        // ===== СТАТИСТИКА =====
         const statNumbers = document.querySelectorAll('.stat__number[data-count]');
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1825,9 +1780,7 @@
         }, { threshold: 0.5 });
         statNumbers.forEach(el => statsObserver.observe(el));
 
-        // ============================================================
-        //  ВИДЕО-КАРУСЕЛЬ
-        // ============================================================
+        // ===== ВИДЕО-КАРУСЕЛЬ =====
         new Swiper('.videoSwiper', {
             slidesPerView: 1,
             spaceBetween: 20,
@@ -1838,9 +1791,7 @@
             autoplay: { delay: 5000, disableOnInteraction: true },
         });
 
-        // ============================================================
-        //  КНОПКИ "ВЫБРАТЬ" В ПРАЙС-ЛИСТЕ
-        // ============================================================
+        // ===== КНОПКИ "ВЫБРАТЬ" =====
         document.querySelectorAll('.btn--select').forEach(btn => {
             btn.addEventListener('click', function() {
                 const serviceName = this.getAttribute('data-service');
@@ -1857,9 +1808,7 @@
             });
         });
 
-        // ============================================================
-        //  ФОРМА ЗАПИСИ — ОТПРАВКА ЧЕРЕЗ FETCH
-        // ============================================================
+        // ===== ФОРМА ЗАПИСИ (отправка через iframe, GET через fetch) =====
         (function() {
             const form = document.getElementById('bookingForm');
             const timeSelect = document.getElementById('time');
@@ -1869,17 +1818,14 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymW6cuB7MDCitD3XMCxIi8MYtyYJWq8ld7JA3nq7-P_pF_c-in5hqLpKyOjywF0oZ7/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcQRLZ8HujP81qEPF8dc7-ux63Km-r505j7hYeWzocT8bIsjIKqjLv20ycAs-0xvVF/exec';
 
-            // ----- Вспомогательная функция для форматирования телефона -----
+            // ----- Форматирование телефона -----
             function formatPhone(raw) {
-                // Удаляем все нецифровые символы, кроме +
                 let digits = raw.replace(/[^\d+]/g, '');
-                // Если начинается с 0, заменяем на +996
                 if (digits.startsWith('0')) {
                     digits = '+996' + digits.substring(1);
                 }
-                // Если не содержит +, добавляем +996
                 if (!digits.startsWith('+')) {
                     if (digits.startsWith('996')) {
                         digits = '+' + digits;
@@ -1887,11 +1833,10 @@
                         digits = '+996' + digits;
                     }
                 }
-                // Убираем лишние символы, оставляем только + и цифры
                 return digits.replace(/[^+\d]/g, '');
             }
 
-            // ----- Генерация временных слотов (9:00 – 17:00) -----
+            // ----- Генерация слотов -----
             function generateTimeSlots() {
                 const slots = [];
                 for (let h = 9; h <= 17; h++) {
@@ -1900,7 +1845,7 @@
                 return slots;
             }
 
-            // ----- Запрос занятых слотов для врача и даты -----
+            // ----- Получение занятых слотов (GET) -----
             async function fetchBookedSlots(date, doctor) {
                 try {
                     const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor);
@@ -1914,7 +1859,7 @@
                 }
             }
 
-            // ----- Обновление выпадающего списка времени -----
+            // ----- Обновление списка времени -----
             async function updateTimeSlots() {
                 const date = dateInput.value;
                 const doctor = doctorSelect.value;
@@ -1928,10 +1873,8 @@
                 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                 const selected = new Date(date + 'T00:00:00');
 
-                // Получаем все возможные слоты
                 let slots = generateTimeSlots();
 
-                // Убираем прошедшие часы, если выбрана сегодняшняя дата
                 if (selected.getTime() === today.getTime()) {
                     const currentHour = now.getHours();
                     const currentMin = now.getMinutes();
@@ -1941,11 +1884,9 @@
                     });
                 }
 
-                // Получаем занятые слоты для этого врача и даты
                 const booked = await fetchBookedSlots(date, doctor);
                 const available = slots.filter(time => !booked.includes(time));
 
-                // Заполняем select
                 const activeLang = currentLang || 'kg';
                 timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') +
                     '</option>';
@@ -1957,23 +1898,14 @@
                 });
             }
 
-            // ----- Обработчики изменения даты и врача -----
             dateInput.addEventListener('change', updateTimeSlots);
             doctorSelect.addEventListener('change', updateTimeSlots);
-
-            // ----- Устанавливаем минимальную дату (сегодня) -----
             dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
-            // ----- Отправка формы -----
-            form.addEventListener('submit', async function(e) {
+            // ----- Обработчик отправки (iframe) -----
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Блокируем кнопку
-                submitBtn.disabled = true;
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Отправка...';
-
-                // Собираем данные
                 const lastName = document.getElementById('lastName').value.trim();
                 const firstName = document.getElementById('firstName').value.trim();
                 const phoneRaw = document.getElementById('phone').value.trim();
@@ -1990,81 +1922,120 @@
                 if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
                     msgDiv.className = 'form-message error';
                     msgDiv.innerHTML = t.msg_fill_fields;
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
                     return;
                 }
 
-                // Форматируем телефон
                 const fullPhone = formatPhone(phoneRaw);
 
-                // Отправляем POST-запрос
-                try {
-                    const payload = {
-                        lastName: lastName,
-                        firstName: firstName,
-                        phone: fullPhone,
-                        doctor: doctor,
-                        doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
-                        service: service,
-                        serviceText: document.getElementById('service').options[document.getElementById('service')
-                            .selectedIndex].text,
-                        date: date,
-                        time: time,
-                        comment: comment,
-                        lang: activeLang
-                    };
+                // Блокируем кнопку
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Отправка...';
 
-                    const response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(payload)
-                    });
+                // Создаём iframe для ответа
+                const iframe = document.createElement('iframe');
+                iframe.name = 'hiddenFrame_' + Date.now();
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
 
-                    const result = await response.json();
+                // Создаём form и отправляем через POST
+                const hiddenForm = document.createElement('form');
+                hiddenForm.method = 'POST';
+                hiddenForm.action = SCRIPT_URL;
+                hiddenForm.target = iframe.name;
+                hiddenForm.style.display = 'none';
 
-                    if (result.success) {
-                        // Успех
-                        msgDiv.className = 'form-message success';
-                        let thanksMsg = t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
-                        thanksMsg = thanksMsg
-                            .replace(/{name}/g, firstName)
-                            .replace(/{surname}/g, lastName)
-                            .replace(/{phone}/g, fullPhone);
-                        msgDiv.innerHTML = thanksMsg;
+                const fields = {
+                    lastName: lastName,
+                    firstName: firstName,
+                    phone: fullPhone,
+                    doctor: doctor,
+                    doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
+                    service: service,
+                    serviceText: document.getElementById('service').options[document.getElementById('service')
+                        .selectedIndex].text,
+                    date: date,
+                    time: time,
+                    comment: comment,
+                    lang: activeLang
+                };
 
-                        // Очищаем форму
-                        document.getElementById('lastName').value = '';
-                        document.getElementById('firstName').value = '';
-                        document.getElementById('phone').value = '';
-                        document.getElementById('service').value = '';
-                        document.getElementById('comment').value = '';
-
-                        // Обновляем список доступных слотов (чтобы убрать только что занятое время)
-                        await updateTimeSlots();
-                    } else {
-                        // Ошибка от сервера
-                        msgDiv.className = 'form-message error';
-                        msgDiv.innerHTML = result.error || t.msg_error;
-                    }
-                } catch (error) {
-                    msgDiv.className = 'form-message error';
-                    msgDiv.innerHTML = t.msg_error;
-                    console.error(error);
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
+                for (let key in fields) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = fields[key];
+                    hiddenForm.appendChild(input);
                 }
+
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+
+                // Обработчик сообщения от iframe
+                const messageHandler = function(event) {
+                    const data = event.data;
+                    if (data && typeof data === 'object') {
+                        if (data.type === 'BOOKING_SUCCESS') {
+                            msgDiv.className = 'form-message success';
+                            let thanksMsg = t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
+                            thanksMsg = thanksMsg
+                                .replace(/{name}/g, firstName)
+                                .replace(/{surname}/g, lastName)
+                                .replace(/{phone}/g, fullPhone);
+                            msgDiv.innerHTML = thanksMsg;
+
+                            // Очистка формы
+                            document.getElementById('lastName').value = '';
+                            document.getElementById('firstName').value = '';
+                            document.getElementById('phone').value = '';
+                            document.getElementById('service').value = '';
+                            document.getElementById('comment').value = '';
+
+                            // Обновляем список слотов
+                            updateTimeSlots();
+
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = t.btn_book || 'Записаться';
+
+                            setTimeout(() => {
+                                if (iframe.parentNode) iframe.remove();
+                                if (hiddenForm.parentNode) hiddenForm.remove();
+                            }, 1000);
+                            window.removeEventListener('message', messageHandler);
+                        } else if (data.type === 'BOOKING_ERROR') {
+                            msgDiv.className = 'form-message error';
+                            msgDiv.innerHTML = data.error || t.msg_error;
+                            submitBtn.disabled = false;
+                            submitBtn.textContent = t.btn_book || 'Записаться';
+                            setTimeout(() => {
+                                if (iframe.parentNode) iframe.remove();
+                                if (hiddenForm.parentNode) hiddenForm.remove();
+                            }, 1000);
+                            window.removeEventListener('message', messageHandler);
+                        }
+                    }
+                };
+
+                window.addEventListener('message', messageHandler);
+
+                // Таймаут
+                setTimeout(() => {
+                    if (iframe.parentNode) {
+                        msgDiv.className = 'form-message error';
+                        msgDiv.innerHTML = t.msg_error || 'Ошибка соединения с сервером.';
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = t.btn_book || 'Записаться';
+                        if (iframe.parentNode) iframe.remove();
+                        if (hiddenForm.parentNode) hiddenForm.remove();
+                        window.removeEventListener('message', messageHandler);
+                    }
+                }, 15000);
             });
 
-            // При загрузке страницы, если уже выбраны врач и дата, подгружаем слоты
+            // При загрузке страницы подгружаем слоты, если выбраны врач и дата
             if (dateInput.value && doctorSelect.value) {
                 updateTimeSlots();
             }
         })();
     </script>
-
 </body>
 </html>

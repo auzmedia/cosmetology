@@ -42,7 +42,6 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
         }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
@@ -84,13 +83,8 @@
         .btn--outline:hover {
             background: var(--blue-bg);
         }
-        .btn--small {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-        }
-        .btn--full {
-            width: 100%;
-        }
+        .btn--small { padding: 10px 20px; font-size: 0.9rem; }
+        .btn--full { width: 100%; }
         .btn--select {
             background: var(--blue-bg);
             color: var(--blue);
@@ -139,12 +133,8 @@
             font-family: inherit;
             outline: none;
         }
-        .lang-selector select:hover {
-            background: var(--blue-bg);
-        }
-        .lang-selector .lang-icon {
-            font-size: 1.2rem;
-        }
+        .lang-selector select:hover { background: var(--blue-bg); }
+        .lang-selector .lang-icon { font-size: 1.2rem; }
 
         /* ===== Header ===== */
         .header {
@@ -1879,7 +1869,7 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZb5WLFD9RD7yZ6_wtIdSDpodrwhc3QuolpepMYzYCcCgoYO5LM9wzO6tISH0AAOvs/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymW6cuB7MDCitD3XMCxIi8MYtyYJWq8ld7JA3nq7-P_pF_c-in5hqLpKyOjywF0oZ7/exec';
 
             // ----- Вспомогательная функция для форматирования телефона -----
             function formatPhone(raw) {
@@ -2008,11 +1998,6 @@
                 // Форматируем телефон
                 const fullPhone = formatPhone(phoneRaw);
 
-                // Проверяем, не занято ли это время (повторная проверка на сервере тоже будет)
-                // Но мы уже обновили список доступных слотов, поэтому дополнительная проверка не нужна,
-                // однако на всякий случай можно сделать ещё один запрос.
-                // Для надёжности оставим проверку на сервере.
-
                 // Отправляем POST-запрос
                 try {
                     const payload = {
@@ -2032,31 +2017,13 @@
 
                     const response = await fetch(SCRIPT_URL, {
                         method: 'POST',
-                        mode: 'no-cors', // важно для Apps Script, чтобы обойти CORS
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(payload)
                     });
 
-                    // Так как мы используем no-cors, ответ не читается, но запрос уходит.
-                    // Вместо этого Apps Script должен вернуть JSON, но из-за no-cors мы не можем прочитать ответ.
-                    // Поэтому используем альтернативный подход: отправляем как form-data, чтобы получить ответ.
-                    // Переделаем: отправим как form-urlencoded.
-                    // Заменим на обычный POST с form-data.
-
-                    // Используем FormData
-                    const formData = new FormData();
-                    for (let key in payload) {
-                        formData.append(key, payload[key]);
-                    }
-
-                    const response2 = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const result = await response2.json();
+                    const result = await response.json();
 
                     if (result.success) {
                         // Успех
@@ -2074,9 +2041,9 @@
                         document.getElementById('phone').value = '';
                         document.getElementById('service').value = '';
                         document.getElementById('comment').value = '';
-                        dateInput.value = '';
-                        timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time ||
-                            'Выберите время') + '</option>';
+
+                        // Обновляем список доступных слотов (чтобы убрать только что занятое время)
+                        await updateTimeSlots();
                     } else {
                         // Ошибка от сервера
                         msgDiv.className = 'form-message error';
@@ -2092,7 +2059,7 @@
                 }
             });
 
-            // При загрузке страницы показываем доступные слоты, если уже выбраны врач и дата
+            // При загрузке страницы, если уже выбраны врач и дата, подгружаем слоты
             if (dateInput.value && doctorSelect.value) {
                 updateTimeSlots();
             }

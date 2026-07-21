@@ -1818,7 +1818,7 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcQRLZ8HujP81qEPF8dc7-ux63Km-r505j7hYeWzocT8bIsjIKqjLv20ycAs-0xvVF/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSDNGoqNtEuS1B3o2etKmx0syUEjtPW-_zd2TRtEOJIt91eGPqw65jYxWZpMGEPfF0/exec';
 
             // ----- Форматирование телефона -----
             function formatPhone(raw) {
@@ -1836,7 +1836,7 @@
                 return digits.replace(/[^+\d]/g, '');
             }
 
-            // ----- Генерация слотов -----
+            // ----- Генерация слотов (9:00 – 17:00) -----
             function generateTimeSlots() {
                 const slots = [];
                 for (let h = 9; h <= 17; h++) {
@@ -1849,7 +1849,9 @@
             async function fetchBookedSlots(date, doctor) {
                 try {
                     const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor);
-                    const response = await fetch(url);
+                    const response = await fetch(url, {
+                        mode: 'cors', // явно указываем CORS
+                    });
                     if (!response.ok) return [];
                     const data = await response.json();
                     return data.bookedTimes || [];
@@ -1875,6 +1877,7 @@
 
                 let slots = generateTimeSlots();
 
+                // Убираем прошедшие часы для сегодняшней даты
                 if (selected.getTime() === today.getTime()) {
                     const currentHour = now.getHours();
                     const currentMin = now.getMinutes();
@@ -1884,6 +1887,7 @@
                     });
                 }
 
+                // Запрашиваем занятые слоты
                 const booked = await fetchBookedSlots(date, doctor);
                 const available = slots.filter(time => !booked.includes(time));
 
@@ -1898,8 +1902,11 @@
                 });
             }
 
+            // ----- Обработчики изменения даты и врача -----
             dateInput.addEventListener('change', updateTimeSlots);
             doctorSelect.addEventListener('change', updateTimeSlots);
+
+            // ----- Минимальная дата (сегодня) -----
             dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
             // ----- Обработчик отправки (iframe) -----
@@ -1990,7 +1997,7 @@
                             document.getElementById('service').value = '';
                             document.getElementById('comment').value = '';
 
-                            // Обновляем список слотов
+                            // Обновляем список слотов (убираем только что занятое время)
                             updateTimeSlots();
 
                             submitBtn.disabled = false;
@@ -2017,7 +2024,7 @@
 
                 window.addEventListener('message', messageHandler);
 
-                // Таймаут
+                // Таймаут на случай, если iframe не отвечает
                 setTimeout(() => {
                     if (iframe.parentNode) {
                         msgDiv.className = 'form-message error';
@@ -2031,7 +2038,7 @@
                 }, 15000);
             });
 
-            // При загрузке страницы подгружаем слоты, если выбраны врач и дата
+            // При загрузке страницы, если уже выбраны врач и дата – подгружаем слоты
             if (dateInput.value && doctorSelect.value) {
                 updateTimeSlots();
             }

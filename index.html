@@ -33,7 +33,6 @@
             --footer-text: #e2e8f0;
             --radius: 24px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -46,7 +45,6 @@
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -100,7 +98,6 @@
             cursor: not-allowed;
             transform: none !important;
         }
-
         .lang-selector {
             position: fixed;
             top: 20px;
@@ -130,7 +127,6 @@
         }
         .lang-selector select:hover { background: var(--blue-bg); }
         .lang-selector .lang-icon { font-size: 1.2rem; }
-
         .header {
             background: var(--header-bg);
             backdrop-filter: blur(12px);
@@ -177,7 +173,6 @@
             border-radius: 4px;
             transition: all 0.3s;
         }
-
         .hero {
             padding: 60px 0 80px;
             position: relative;
@@ -272,7 +267,6 @@
         .deco-1 { width: 300px; height: 300px; top: -100px; right: -80px; }
         .deco-2 { width: 150px; height: 150px; bottom: -30px; left: -40px; background: var(--blue-light); }
         .deco-3 { width: 80px; height: 80px; top: 40%; right: -20px; background: var(--blue-light); }
-
         .advantages {
             padding: 60px 0;
             background: var(--bg-secondary);
@@ -323,7 +317,6 @@
         .advantage-card__img img { width: 100%; height: 100%; object-fit: cover; }
         .advantage-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
         .advantage-card p { font-size: 0.9rem; color: var(--text-secondary); }
-
         .about {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -374,7 +367,6 @@
             border-radius: 20px;
         }
         .about__experience strong { display: block; font-size: 1.1rem; }
-
         .price-list {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -440,7 +432,6 @@
             gap: 12px;
             flex-shrink: 0;
         }
-
         .doctors {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -474,7 +465,6 @@
         .doctor-card__spec { font-size: 0.85rem; color: var(--blue); font-weight: 500; }
         .doctor-card__exp { font-size: 0.85rem; color: var(--text-secondary); margin: 8px 0; }
         .doctor-card__rating { font-weight: 600; color: #eab308; margin-bottom: 12px; }
-
         .video-carousel {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -509,7 +499,6 @@
             font-size: 20px;
             font-weight: 700;
         }
-
         .booking {
             padding: 70px 0;
             background: var(--bg-primary);
@@ -624,7 +613,6 @@
         }
         .phone-wrapper input:focus { box-shadow: none !important; }
         .required { color: #dc2626; }
-
         .contacts {
             padding: 70px 0;
             background: var(--bg-secondary);
@@ -659,7 +647,6 @@
             overflow: hidden;
             box-shadow: var(--shadow);
         }
-
         .footer {
             background: var(--footer-bg);
             color: var(--footer-text);
@@ -719,7 +706,6 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-
         @media (max-width: 992px) {
             .hero__inner { flex-direction: column; text-align: center; }
             .hero__subtitle { margin-left: auto; margin-right: auto; }
@@ -1818,7 +1804,16 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxSDNGoqNtEuS1B3o2etKmx0syUEjtPW-_zd2TRtEOJIt91eGPqw65jYxWZpMGEPfF0/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymW6cuB7MDCitD3XMCxIi8MYtyYJWq8ld7JA3nq7-P_pF_c-in5hqLpKyOjywF0oZ7/exec';
+
+            // ----- Вспомогательная функция для получения текущего времени в Бишкеке (UTC+6) -----
+            function getBishkekTime() {
+                const now = new Date();
+                // UTC+6
+                const offset = 6;
+                const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
+                return localTime;
+            }
 
             // ----- Форматирование телефона -----
             function formatPhone(raw) {
@@ -1845,12 +1840,18 @@
                 return slots;
             }
 
-            // ----- Получение занятых слотов (GET) -----
+            // ----- Получение занятых слотов (GET) с отключением кеша -----
             async function fetchBookedSlots(date, doctor) {
                 try {
-                    const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor);
+                    const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor) +
+                        '&_=' + Date.now();
                     const response = await fetch(url, {
-                        mode: 'cors', // явно указываем CORS
+                        method: 'GET',
+                        headers: {
+                            'Cache-Control': 'no-cache, no-store, must-revalidate',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
                     });
                     if (!response.ok) return [];
                     const data = await response.json();
@@ -1871,16 +1872,16 @@
                     return;
                 }
 
-                const now = new Date();
-                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                const bishkekNow = getBishkekTime();
+                const today = new Date(bishkekNow.getFullYear(), bishkekNow.getMonth(), bishkekNow.getDate());
                 const selected = new Date(date + 'T00:00:00');
 
                 let slots = generateTimeSlots();
 
-                // Убираем прошедшие часы для сегодняшней даты
+                // Убираем прошедшие часы для сегодняшней даты по времени Бишкек
                 if (selected.getTime() === today.getTime()) {
-                    const currentHour = now.getHours();
-                    const currentMin = now.getMinutes();
+                    const currentHour = bishkekNow.getHours();
+                    const currentMin = bishkekNow.getMinutes();
                     slots = slots.filter(time => {
                         const [h] = time.split(':').map(Number);
                         return h > currentHour || (h === currentHour && currentMin === 0);
@@ -1906,8 +1907,10 @@
             dateInput.addEventListener('change', updateTimeSlots);
             doctorSelect.addEventListener('change', updateTimeSlots);
 
-            // ----- Минимальная дата (сегодня) -----
-            dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
+            // ----- Минимальная дата (сегодня по Бишкеку) -----
+            const bishkekToday = getBishkekTime();
+            const todayStr = bishkekToday.toISOString().split('T')[0];
+            dateInput.setAttribute('min', todayStr);
 
             // ----- Обработчик отправки (iframe) -----
             form.addEventListener('submit', function(e) {
@@ -1998,7 +2001,10 @@
                             document.getElementById('comment').value = '';
 
                             // Обновляем список слотов (убираем только что занятое время)
-                            updateTimeSlots();
+                            // Делаем это дважды с задержкой, чтобы данные успели обновиться на сервере
+                            setTimeout(() => {
+                                updateTimeSlots();
+                            }, 500);
 
                             submitBtn.disabled = false;
                             submitBtn.textContent = t.btn_book || 'Записаться';

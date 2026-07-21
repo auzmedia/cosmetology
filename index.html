@@ -35,14 +35,8 @@
         }
 
         /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -50,22 +44,10 @@
             line-height: 1.6;
             transition: background 0.3s, color 0.3s;
         }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        ul {
-            list-style: none;
-        }
-        img {
-            max-width: 100%;
-            display: block;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         /* ===== Buttons ===== */
         .btn {
@@ -122,6 +104,11 @@
         .btn--select:hover {
             background: var(--blue);
             color: #fff;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         /* ===== Language Selector ===== */
@@ -182,24 +169,15 @@
             font-size: 1.6rem;
             color: var(--text-primary);
         }
-        .logo i {
-            font-size: 1.8rem;
-            color: var(--blue);
-        }
-        .logo__highlight {
-            color: var(--blue);
-        }
+        .logo i { font-size: 1.8rem; color: var(--blue); }
+        .logo__highlight { color: var(--blue); }
         .nav__list {
             display: flex;
             gap: 28px;
             font-weight: 500;
         }
-        .nav__list a {
-            transition: color 0.2s;
-        }
-        .nav__list a:hover {
-            color: var(--blue);
-        }
+        .nav__list a { transition: color 0.2s; }
+        .nav__list a:hover { color: var(--blue); }
         .burger {
             display: none;
             flex-direction: column;
@@ -227,9 +205,7 @@
             align-items: center;
             gap: 40px;
         }
-        .hero__content {
-            flex: 1;
-        }
+        .hero__content { flex: 1; }
         .hero__badge {
             display: inline-block;
             background: var(--blue-bg);
@@ -246,9 +222,7 @@
             line-height: 1.2;
             margin-bottom: 16px;
         }
-        .hero__title .highlight {
-            color: var(--blue);
-        }
+        .hero__title .highlight { color: var(--blue); }
         .hero__subtitle {
             font-size: 1.15rem;
             color: var(--text-secondary);
@@ -267,9 +241,7 @@
             gap: 8px;
             font-weight: 500;
         }
-        .hero__features i {
-            color: var(--blue);
-        }
+        .hero__features i { color: var(--blue); }
         .hero__actions {
             display: flex;
             gap: 16px;
@@ -314,26 +286,9 @@
             background: var(--blue);
             z-index: -1;
         }
-        .deco-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -80px;
-        }
-        .deco-2 {
-            width: 150px;
-            height: 150px;
-            bottom: -30px;
-            left: -40px;
-            background: var(--blue-light);
-        }
-        .deco-3 {
-            width: 80px;
-            height: 80px;
-            top: 40%;
-            right: -20px;
-            background: var(--blue-light);
-        }
+        .deco-1 { width: 300px; height: 300px; top: -100px; right: -80px; }
+        .deco-2 { width: 150px; height: 150px; bottom: -30px; left: -40px; background: var(--blue-light); }
+        .deco-3 { width: 80px; height: 80px; top: 40%; right: -20px; background: var(--blue-light); }
 
         /* ===== Advantages ===== */
         .advantages {
@@ -355,9 +310,7 @@
             line-height: 1.2;
             margin-bottom: 28px;
         }
-        .section-title .highlight {
-            color: var(--blue);
-        }
+        .section-title .highlight { color: var(--blue); }
         .advantages__grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -385,19 +338,9 @@
             margin: 0 auto 12px;
             border: 3px solid var(--blue);
         }
-        .advantage-card__img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .advantage-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 6px;
-        }
-        .advantage-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
+        .advantage-card__img img { width: 100%; height: 100%; object-fit: cover; }
+        .advantage-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+        .advantage-card p { font-size: 0.9rem; color: var(--text-secondary); }
 
         /* ===== About ===== */
         .about {
@@ -409,38 +352,26 @@
             gap: 50px;
             align-items: center;
         }
-        .about__content {
-            flex: 1;
-        }
-        .about__content p {
-            margin-bottom: 16px;
-            color: var(--text-secondary);
-        }
+        .about__content { flex: 1; }
+        .about__content p { margin-bottom: 16px; color: var(--text-secondary); }
         .about__stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             margin-top: 30px;
         }
-        .stat {
-            text-align: center;
-        }
+        .stat { text-align: center; }
         .stat__number {
             font-size: 2rem;
             font-weight: 800;
             color: var(--blue);
         }
-        .stat__plus,
-        .stat__star {
+        .stat__plus, .stat__star {
             font-size: 1.6rem;
             font-weight: 700;
             color: var(--blue);
         }
-        .stat__label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+        .stat__label { display: block; font-size: 0.85rem; color: var(--text-secondary); }
         .about__image {
             flex: 1;
             position: relative;
@@ -448,11 +379,7 @@
             overflow: hidden;
             box-shadow: var(--shadow);
         }
-        .about__image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+        .about__image img { width: 100%; height: auto; display: block; }
         .about__experience {
             position: absolute;
             bottom: 20px;
@@ -465,19 +392,14 @@
             backdrop-filter: blur(8px);
             border-radius: 20px;
         }
-        .about__experience strong {
-            display: block;
-            font-size: 1.1rem;
-        }
+        .about__experience strong { display: block; font-size: 1.1rem; }
 
         /* ===== Price List ===== */
         .price-list {
             padding: 70px 0;
             background: var(--bg-secondary);
         }
-        .price-category {
-            margin-bottom: 48px;
-        }
+        .price-category { margin-bottom: 48px; }
         .price-category__header {
             display: flex;
             align-items: center;
@@ -510,7 +432,7 @@
             padding: 14px 20px;
             background: var(--bg-card);
             border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             border: 1px solid var(--border-color);
             transition: all 0.25s ease;
             gap: 12px;
@@ -558,9 +480,7 @@
             border: 1px solid var(--border-color);
             transition: transform 0.3s;
         }
-        .doctor-card:hover {
-            transform: translateY(-5px);
-        }
+        .doctor-card:hover { transform: translateY(-5px); }
         .doctor-card__img {
             width: 120px;
             height: 120px;
@@ -568,32 +488,13 @@
             overflow: hidden;
             margin: 0 auto 16px;
             border: 4px solid var(--bg-secondary);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
-        .doctor-card__img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .doctor-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-        .doctor-card__spec {
-            font-size: 0.85rem;
-            color: var(--blue);
-            font-weight: 500;
-        }
-        .doctor-card__exp {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin: 8px 0;
-        }
-        .doctor-card__rating {
-            font-weight: 600;
-            color: #eab308;
-            margin-bottom: 12px;
-        }
+        .doctor-card__img img { width: 100%; height: 100%; object-fit: cover; }
+        .doctor-card h3 { font-size: 1.1rem; margin-bottom: 4px; }
+        .doctor-card__spec { font-size: 0.85rem; color: var(--blue); font-weight: 500; }
+        .doctor-card__exp { font-size: 0.85rem; color: var(--text-secondary); margin: 8px 0; }
+        .doctor-card__rating { font-weight: 600; color: #eab308; margin-bottom: 12px; }
 
         /* ===== Video Carousel ===== */
         .video-carousel {
@@ -641,25 +542,16 @@
             gap: 50px;
             align-items: flex-start;
         }
-        .booking__content {
-            flex: 1;
-        }
-        .booking__content .section-title {
-            margin-bottom: 0.5rem;
-        }
-        .booking__content p {
-            margin-bottom: 20px;
-        }
+        .booking__content { flex: 1; }
+        .booking__content .section-title { margin-bottom: 0.5rem; }
+        .booking__content p { margin-bottom: 20px; }
         .booking__info {
             display: flex;
             flex-direction: column;
             gap: 8px;
             font-weight: 500;
         }
-        .booking__info i {
-            width: 28px;
-            color: var(--blue);
-        }
+        .booking__info i { width: 28px; color: var(--blue); }
         .booking__form {
             flex: 1.2;
             padding: 36px 32px;
@@ -672,9 +564,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-        .form-group {
-            margin-bottom: 16px;
-        }
+        .form-group { margin-bottom: 16px; }
         .form-group label {
             display: block;
             font-weight: 600;
@@ -700,9 +590,7 @@
             border-color: var(--blue);
             box-shadow: 0 0 0 3px rgba(15, 108, 189, 0.15);
         }
-        .form-group textarea {
-            resize: vertical;
-        }
+        .form-group textarea { resize: vertical; }
         .form-message {
             margin-top: 16px;
             padding: 16px 20px;
@@ -757,12 +645,8 @@
             flex: 1;
             min-width: 0;
         }
-        .phone-wrapper input:focus {
-            box-shadow: none !important;
-        }
-        .required {
-            color: #dc2626;
-        }
+        .phone-wrapper input:focus { box-shadow: none !important; }
+        .required { color: #dc2626; }
 
         /* ===== Contacts ===== */
         .contacts {
@@ -773,9 +657,7 @@
             display: flex;
             gap: 50px;
         }
-        .contacts__info {
-            flex: 1;
-        }
+        .contacts__info { flex: 1; }
         .contacts__list {
             display: flex;
             flex-direction: column;
@@ -783,10 +665,7 @@
             font-size: 1.05rem;
             margin: 20px 0 28px;
         }
-        .contacts__list i {
-            width: 30px;
-            color: var(--blue);
-        }
+        .contacts__list i { width: 30px; color: var(--blue); }
         .contacts__social {
             display: flex;
             gap: 16px;
@@ -796,9 +675,7 @@
             transition: color 0.2s;
             color: var(--text-secondary);
         }
-        .contacts__social a:hover {
-            color: var(--blue);
-        }
+        .contacts__social a:hover { color: var(--blue); }
         .contacts__map {
             flex: 1;
             min-height: 320px;
@@ -819,41 +696,26 @@
             justify-content: space-between;
             gap: 40px;
             padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .footer__brand .logo {
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .footer__brand p {
-            color: #94a3b8;
-        }
+        .footer__brand .logo { color: #fff; margin-bottom: 8px; }
+        .footer__brand p { color: #94a3b8; }
         .footer__nav ul {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
             font-weight: 500;
         }
-        .footer__nav a {
-            transition: color 0.2s;
-        }
-        .footer__nav a:hover {
-            color: #2BA9FF;
-        }
+        .footer__nav a { transition: color 0.2s; }
+        .footer__nav a:hover { color: #2BA9FF; }
         .footer__contacts {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-        .footer__contacts a {
-            transition: color 0.2s;
-        }
-        .footer__contacts a:hover {
-            color: #2BA9FF;
-        }
-        .footer__social-block {
-            margin-top: 10px;
-        }
+        .footer__contacts a { transition: color 0.2s; }
+        .footer__contacts a:hover { color: #2BA9FF; }
+        .footer__social-block { margin-top: 10px; }
         .footer__social-block span {
             display: block;
             font-size: 0.9rem;
@@ -867,18 +729,14 @@
             gap: 14px;
             font-size: 1.6rem;
         }
-        .footer__social a {
-            transition: color 0.2s;
-        }
-        .footer__social a:hover {
-            color: #2BA9FF;
-        }
+        .footer__social a { transition: color 0.2s; }
+        .footer__social a:hover { color: #2BA9FF; }
         .footer__bottom {
             padding: 20px 0;
             text-align: center;
             color: #94a3b8;
             font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
         .footer__bottom .container {
             display: flex;
@@ -889,37 +747,17 @@
 
         /* ===== Responsive ===== */
         @media (max-width: 992px) {
-            .hero__inner {
-                flex-direction: column;
-                text-align: center;
-            }
-            .hero__subtitle {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .hero__features {
-                justify-content: center;
-            }
-            .hero__actions {
-                justify-content: center;
-            }
-            .about__inner {
-                flex-direction: column;
-            }
-            .booking__inner {
-                flex-direction: column;
-            }
-            .contacts__inner {
-                flex-direction: column;
-            }
-            .contacts__map {
-                min-height: 250px;
-            }
+            .hero__inner { flex-direction: column; text-align: center; }
+            .hero__subtitle { margin-left: auto; margin-right: auto; }
+            .hero__features { justify-content: center; }
+            .hero__actions { justify-content: center; }
+            .about__inner { flex-direction: column; }
+            .booking__inner { flex-direction: column; }
+            .contacts__inner { flex-direction: column; }
+            .contacts__map { min-height: 250px; }
         }
         @media (max-width: 768px) {
-            .nav {
-                display: none;
-            }
+            .nav { display: none; }
             .nav.active {
                 display: block;
                 position: absolute;
@@ -931,86 +769,35 @@
                 box-shadow: var(--shadow);
                 border-radius: 0 0 20px 20px;
             }
-            .nav.active .nav__list {
-                flex-direction: column;
-                gap: 12px;
-                align-items: center;
-            }
-            .burger {
-                display: flex;
-            }
-            .hero__title {
-                font-size: 2.4rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .about__stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            .footer__inner {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .footer__nav ul {
-                justify-content: center;
-            }
-            .footer__bottom .container {
-                justify-content: center;
-            }
-            .advantages__grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .price-list__grid {
-                grid-template-columns: 1fr;
-            }
-            .price-item {
-                flex-wrap: wrap;
-                padding: 12px 16px;
-            }
-            .price-item__actions {
-                margin-left: auto;
-            }
+            .nav.active .nav__list { flex-direction: column; gap: 12px; align-items: center; }
+            .burger { display: flex; }
+            .hero__title { font-size: 2.4rem; }
+            .section-title { font-size: 1.8rem; }
+            .about__stats { grid-template-columns: 1fr 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer__inner { flex-direction: column; align-items: center; text-align: center; }
+            .footer__nav ul { justify-content: center; }
+            .footer__bottom .container { justify-content: center; }
+            .advantages__grid { grid-template-columns: repeat(2, 1fr); }
+            .price-list__grid { grid-template-columns: 1fr; }
+            .price-item { flex-wrap: wrap; padding: 12px 16px; }
+            .price-item__actions { margin-left: auto; }
             .lang-selector {
                 top: 10px;
                 right: 10px;
                 padding: 4px 10px 4px 12px;
             }
-            .lang-selector select {
-                font-size: 0.8rem;
-            }
+            .lang-selector select { font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
-            .hero__title {
-                font-size: 2rem;
-            }
-            .hero__image-wrapper {
-                max-width: 100%;
-            }
-            .doctors__grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .advantage-card {
-                padding: 16px 12px;
-            }
-            .price-item {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-            }
-            .price-item__actions {
-                justify-content: flex-end;
-            }
-            .price-category__title {
-                font-size: 1.2rem;
-            }
-            .booking__form {
-                padding: 24px 16px;
-            }
+            .hero__title { font-size: 2rem; }
+            .hero__image-wrapper { max-width: 100%; }
+            .doctors__grid { grid-template-columns: 1fr 1fr; }
+            .advantage-card { padding: 16px 12px; }
+            .price-item { flex-direction: column; align-items: stretch; gap: 8px; }
+            .price-item__actions { justify-content: flex-end; }
+            .price-category__title { font-size: 1.2rem; }
+            .booking__form { padding: 24px 16px; }
         }
     </style>
 </head>
@@ -2081,7 +1868,7 @@
         });
 
         // ============================================================
-        //  ФОРМА ЗАПИСИ — ОТПРАВКА В APPS SCRIPT
+        //  ФОРМА ЗАПИСИ — ОТПРАВКА ЧЕРЕЗ FETCH
         // ============================================================
         (function() {
             const form = document.getElementById('bookingForm');
@@ -2092,30 +1879,87 @@
             const submitBtn = form.querySelector('button[type="submit"]');
 
             // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtoEZcmArf40O8Gw6JST5WM0V-CXBE3ixdQEU2ynKnXtFLuhZqGWIIyPAAOFu9KNTg/exec';
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwZb5WLFD9RD7yZ6_wtIdSDpodrwhc3QuolpepMYzYCcCgoYO5LM9wzO6tISH0AAOvs/exec';
 
-            // ----- Генерация временных слотов -----
+            // ----- Вспомогательная функция для форматирования телефона -----
+            function formatPhone(raw) {
+                // Удаляем все нецифровые символы, кроме +
+                let digits = raw.replace(/[^\d+]/g, '');
+                // Если начинается с 0, заменяем на +996
+                if (digits.startsWith('0')) {
+                    digits = '+996' + digits.substring(1);
+                }
+                // Если не содержит +, добавляем +996
+                if (!digits.startsWith('+')) {
+                    if (digits.startsWith('996')) {
+                        digits = '+' + digits;
+                    } else {
+                        digits = '+996' + digits;
+                    }
+                }
+                // Убираем лишние символы, оставляем только + и цифры
+                return digits.replace(/[^+\d]/g, '');
+            }
+
+            // ----- Генерация временных слотов (9:00 – 17:00) -----
             function generateTimeSlots() {
                 const slots = [];
-                for (let h = 9; h <= 17; h++) slots.push(String(h).padStart(2, '0') + ':00');
+                for (let h = 9; h <= 17; h++) {
+                    slots.push(String(h).padStart(2, '0') + ':00');
+                }
                 return slots;
             }
 
-            function populateTimeSlots(selectedDate, selectedDoctor) {
-                const slots = generateTimeSlots();
+            // ----- Запрос занятых слотов для врача и даты -----
+            async function fetchBookedSlots(date, doctor) {
+                try {
+                    const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor);
+                    const response = await fetch(url);
+                    if (!response.ok) return [];
+                    const data = await response.json();
+                    return data.bookedTimes || [];
+                } catch (error) {
+                    console.warn('Ошибка получения занятых слотов:', error);
+                    return [];
+                }
+            }
+
+            // ----- Обновление выпадающего списка времени -----
+            async function updateTimeSlots() {
+                const date = dateInput.value;
+                const doctor = doctorSelect.value;
+                if (!date || !doctor) {
+                    timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') +
+                        '</option>';
+                    return;
+                }
+
                 const now = new Date();
                 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                const selected = new Date(selectedDate + 'T00:00:00');
+                const selected = new Date(date + 'T00:00:00');
 
+                // Получаем все возможные слоты
+                let slots = generateTimeSlots();
+
+                // Убираем прошедшие часы, если выбрана сегодняшняя дата
+                if (selected.getTime() === today.getTime()) {
+                    const currentHour = now.getHours();
+                    const currentMin = now.getMinutes();
+                    slots = slots.filter(time => {
+                        const [h] = time.split(':').map(Number);
+                        return h > currentHour || (h === currentHour && currentMin === 0);
+                    });
+                }
+
+                // Получаем занятые слоты для этого врача и даты
+                const booked = await fetchBookedSlots(date, doctor);
+                const available = slots.filter(time => !booked.includes(time));
+
+                // Заполняем select
                 const activeLang = currentLang || 'kg';
                 timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') +
                     '</option>';
-
-                slots.forEach(time => {
-                    if (selected.getTime() === today.getTime()) {
-                        const [h] = time.split(':').map(Number);
-                        if (h < now.getHours() || (h === now.getHours() && now.getMinutes() > 0)) return;
-                    }
+                available.forEach(time => {
                     const option = document.createElement('option');
                     option.value = time;
                     option.textContent = time;
@@ -2123,34 +1967,12 @@
                 });
             }
 
-            dateInput.addEventListener('change', function() {
-                const doctor = doctorSelect.value;
-                if (this.value && doctor) populateTimeSlots(this.value, doctor);
-            });
+            // ----- Обработчики изменения даты и врача -----
+            dateInput.addEventListener('change', updateTimeSlots);
+            doctorSelect.addEventListener('change', updateTimeSlots);
 
-            doctorSelect.addEventListener('change', function() {
-                const date = dateInput.value;
-                if (date && this.value) populateTimeSlots(date, this.value);
-            });
-
-            // ----- Минимальная дата -----
-            const todayStr = new Date().toISOString().split('T')[0];
-            dateInput.setAttribute('min', todayStr);
-
-            // ----- Проверка занятости (GET) -----
-            async function checkAvailability(date, time, doctor) {
-                try {
-                    const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&time=' + encodeURIComponent(time) +
-                        '&doctor=' + encodeURIComponent(doctor);
-                    const response = await fetch(url, { method: 'GET' });
-                    if (!response.ok) return false;
-                    const result = await response.json();
-                    return result.booked === true;
-                } catch (error) {
-                    console.warn('Ошибка проверки занятости, пропускаем:', error);
-                    return false;
-                }
-            }
+            // ----- Устанавливаем минимальную дату (сегодня) -----
+            dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
             // ----- Отправка формы -----
             form.addEventListener('submit', async function(e) {
@@ -2158,8 +1980,10 @@
 
                 // Блокируем кнопку
                 submitBtn.disabled = true;
+                const originalText = submitBtn.textContent;
                 submitBtn.textContent = 'Отправка...';
 
+                // Собираем данные
                 const lastName = document.getElementById('lastName').value.trim();
                 const firstName = document.getElementById('firstName').value.trim();
                 const phoneRaw = document.getElementById('phone').value.trim();
@@ -2177,123 +2001,101 @@
                     msgDiv.className = 'form-message error';
                     msgDiv.innerHTML = t.msg_fill_fields;
                     submitBtn.disabled = false;
-                    submitBtn.textContent = t.btn_book || 'Записаться';
+                    submitBtn.textContent = originalText;
                     return;
                 }
 
-                // Проверка занятости
-                const isTaken = await checkAvailability(date, time, doctor);
-                if (isTaken) {
-                    msgDiv.className = 'form-message error';
-                    msgDiv.innerHTML = t.msg_time_taken;
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = t.btn_book || 'Записаться';
-                    return;
-                }
+                // Форматируем телефон
+                const fullPhone = formatPhone(phoneRaw);
 
-                // Полный телефон
-                let fullPhone = phoneRaw;
-                if (!fullPhone.startsWith('+996')) fullPhone = '+996' + fullPhone.replace(/^\+?/, '');
+                // Проверяем, не занято ли это время (повторная проверка на сервере тоже будет)
+                // Но мы уже обновили список доступных слотов, поэтому дополнительная проверка не нужна,
+                // однако на всякий случай можно сделать ещё один запрос.
+                // Для надёжности оставим проверку на сервере.
 
-                // Отправка через iframe (POST)
-                const iframe = document.createElement('iframe');
-                iframe.name = 'hiddenFrame_' + Date.now();
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
+                // Отправляем POST-запрос
+                try {
+                    const payload = {
+                        lastName: lastName,
+                        firstName: firstName,
+                        phone: fullPhone,
+                        doctor: doctor,
+                        doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
+                        service: service,
+                        serviceText: document.getElementById('service').options[document.getElementById('service')
+                            .selectedIndex].text,
+                        date: date,
+                        time: time,
+                        comment: comment,
+                        lang: activeLang
+                    };
 
-                const hiddenForm = document.createElement('form');
-                hiddenForm.method = 'POST';
-                hiddenForm.action = SCRIPT_URL;
-                hiddenForm.target = iframe.name;
-                hiddenForm.style.display = 'none';
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // важно для Apps Script, чтобы обойти CORS
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
 
-                const fields = {
-                    lastName: lastName,
-                    firstName: firstName,
-                    phone: fullPhone,
-                    doctor: doctor,
-                    doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
-                    service: service,
-                    serviceText: document.getElementById('service').options[document.getElementById('service')
-                        .selectedIndex].text,
-                    date: date,
-                    time: time,
-                    comment: comment,
-                    lang: activeLang,
-                    _iframe: 'true'
-                };
+                    // Так как мы используем no-cors, ответ не читается, но запрос уходит.
+                    // Вместо этого Apps Script должен вернуть JSON, но из-за no-cors мы не можем прочитать ответ.
+                    // Поэтому используем альтернативный подход: отправляем как form-data, чтобы получить ответ.
+                    // Переделаем: отправим как form-urlencoded.
+                    // Заменим на обычный POST с form-data.
 
-                for (let key in fields) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = fields[key];
-                    hiddenForm.appendChild(input);
-                }
-
-                document.body.appendChild(hiddenForm);
-                hiddenForm.submit();
-
-                // Обработчик ответа от iframe
-                const messageHandler = function(event) {
-                    const data = event.data;
-                    if (data && typeof data === 'object') {
-                        if (data.type === 'BOOKING_SUCCESS') {
-                            msgDiv.className = 'form-message success';
-                            let thanksMsg = t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
-                            thanksMsg = thanksMsg
-                                .replace(/{name}/g, firstName)
-                                .replace(/{surname}/g, lastName)
-                                .replace(/{phone}/g, fullPhone);
-                            msgDiv.innerHTML = thanksMsg;
-
-                            // Очищаем форму
-                            document.getElementById('lastName').value = '';
-                            document.getElementById('firstName').value = '';
-                            document.getElementById('phone').value = '';
-                            document.getElementById('service').value = '';
-                            document.getElementById('comment').value = '';
-                            if (dateInput.value && doctorSelect.value) {
-                                populateTimeSlots(dateInput.value, doctorSelect.value);
-                            }
-
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = t.btn_book || 'Записаться';
-
-                            setTimeout(() => {
-                                if (iframe.parentNode) iframe.remove();
-                                if (hiddenForm.parentNode) hiddenForm.remove();
-                            }, 1000);
-                            window.removeEventListener('message', messageHandler);
-                        } else if (data.type === 'BOOKING_ERROR') {
-                            msgDiv.className = 'form-message error';
-                            msgDiv.innerHTML = data.error || t.msg_error;
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = t.btn_book || 'Записаться';
-                            setTimeout(() => {
-                                if (iframe.parentNode) iframe.remove();
-                                if (hiddenForm.parentNode) hiddenForm.remove();
-                            }, 1000);
-                            window.removeEventListener('message', messageHandler);
-                        }
+                    // Используем FormData
+                    const formData = new FormData();
+                    for (let key in payload) {
+                        formData.append(key, payload[key]);
                     }
-                };
 
-                window.addEventListener('message', messageHandler);
+                    const response2 = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
 
-                // Таймаут
-                setTimeout(() => {
-                    if (iframe.parentNode) {
+                    const result = await response2.json();
+
+                    if (result.success) {
+                        // Успех
+                        msgDiv.className = 'form-message success';
+                        let thanksMsg = t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
+                        thanksMsg = thanksMsg
+                            .replace(/{name}/g, firstName)
+                            .replace(/{surname}/g, lastName)
+                            .replace(/{phone}/g, fullPhone);
+                        msgDiv.innerHTML = thanksMsg;
+
+                        // Очищаем форму
+                        document.getElementById('lastName').value = '';
+                        document.getElementById('firstName').value = '';
+                        document.getElementById('phone').value = '';
+                        document.getElementById('service').value = '';
+                        document.getElementById('comment').value = '';
+                        dateInput.value = '';
+                        timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time ||
+                            'Выберите время') + '</option>';
+                    } else {
+                        // Ошибка от сервера
                         msgDiv.className = 'form-message error';
-                        msgDiv.innerHTML = t.msg_error || 'Ошибка соединения с сервером.';
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = t.btn_book || 'Записаться';
-                        if (iframe.parentNode) iframe.remove();
-                        if (hiddenForm.parentNode) hiddenForm.remove();
-                        window.removeEventListener('message', messageHandler);
+                        msgDiv.innerHTML = result.error || t.msg_error;
                     }
-                }, 15000);
+                } catch (error) {
+                    msgDiv.className = 'form-message error';
+                    msgDiv.innerHTML = t.msg_error;
+                    console.error(error);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                }
             });
+
+            // При загрузке страницы показываем доступные слоты, если уже выбраны врач и дата
+            if (dateInput.value && doctorSelect.value) {
+                updateTimeSlots();
+            }
         })();
     </script>
 

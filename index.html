@@ -1735,7 +1735,6 @@ const translations = {
     }
 };
 
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // ===== ЯЗЫК =====
@@ -1911,7 +1910,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return slots;
         }
 
-        // CORS muammosini chetlab o'tish uchun JSONP (script tag orqali so'rov) yordamida ma'lumot olish
         function sendJsonpRequest(action, date, doctor, callback) {
             const callbackName = 'jsonp_cb_' + Math.round(100000 * Math.random());
             window[callbackName] = function(data) {
@@ -2023,12 +2021,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const comment = commentField ? commentField.value.trim() : '';
 
             const activeLang = currentLang || 'kg';
-            const t = translations[activeLang] || translations.kg;
+            const t = translations[activeLang] || translations.kg || {};
 
             if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
                 msgDiv.className = 'form-message error';
                 msgDiv.style.display = 'block';
-                msgDiv.innerHTML = t.msg_fill_fields;
+                msgDiv.innerHTML = t.msg_fill_fields || 'Заполните все обязательные поля.';
                 return;
             }
 
@@ -2038,9 +2036,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
 
             submitBtn.disabled = true;
-            submitBtn.textContent = t.sending;
+            submitBtn.textContent = t.sending || 'Отправка...';
 
-            // CORS'ni chetlab o'tish uchun Hidden Iframe yordamida yuborish
             let iframeName = 'hidden_iframe_' + Date.now();
             let iframe = document.createElement('iframe');
             iframe.name = iframeName;
@@ -2078,7 +2075,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 msgDiv.className = 'form-message success';
                 msgDiv.style.display = 'block';
                 
-                let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
+                // Xatolik oldini olish uchun String() ga o'rab ishlatildi
+                let rawThanks = (t && t.msg_thanks) ? t.msg_thanks : 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
+                let thanksMsg = String(rawThanks)
                     .replace(/{name}/g, firstName)
                     .replace(/{surname}/g, lastName)
                     .replace(/{phone}/g, fullPhone);
@@ -2093,7 +2092,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTimeSlots();
 
                 submitBtn.disabled = false;
-                submitBtn.textContent = t.btn_book;
+                submitBtn.textContent = t.btn_book || 'Записаться';
 
                 document.body.removeChild(hiddenForm);
                 document.body.removeChild(iframe);

@@ -1369,7 +1369,7 @@
     <script>
         // ===== ПЕРЕВОДЫ (kg — по умолчанию, ru, en) =====
  // Google Apps Script WEB APP URL
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyTJq2xEwJQkqHUNiboLVWtgIGmPxH2Oyaqi4ZNjcaUHovkoCwIic0fRyfI-60V5Bsx/exec"; 
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw5dLVAuNT7hkpdvxxC8uC4WJ19eZk94YVzvctnL8fYRQvi_2PBCqbob76HpcoDNOCH/exec"; 
 
 // --- To'liq tarjimalar obyekti ---
 const translations = {
@@ -1911,41 +1911,47 @@ document.addEventListener('DOMContentLoaded', () => {
             return slots;
         }
 
-        // CORS muammosini oldini olish uchun text/plain formatida POST so'rovi
+        // CORS muammosini chetlab o'tish uchun JSONP (script tag orqali so'rov) yordamida ma'lumot olish
+        function sendJsonpRequest(action, date, doctor, callback) {
+            const callbackName = 'jsonp_cb_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+
+            const script = document.createElement('script');
+            script.src = `${SCRIPT_URL}?action=${action}&date=${encodeURIComponent(date)}&doctor=${encodeURIComponent(doctor || '')}&callback=${callbackName}`;
+            script.onerror = function() {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(null);
+            };
+            document.body.appendChild(script);
+        }
+
         async function fetchBookedSlots(date, doctor) {
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                    },
-                    body: JSON.stringify({ action: 'getTimes', date: date, doctor: doctor })
+            return new Promise((resolve) => {
+                sendJsonpRequest('getTimes', date, doctor, (data) => {
+                    if (data && data.bookedTimes) {
+                        resolve(data.bookedTimes);
+                    } else {
+                        resolve([]);
+                    }
                 });
-                if (!response.ok) return [];
-                const data = await response.json();
-                return data.bookedTimes || [];
-            } catch (error) {
-                console.warn('Band vaqtlarni olishda xatolik:', error);
-                return [];
-            }
+            });
         }
 
         async function isHoliday(date) {
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                    },
-                    body: JSON.stringify({ action: 'holiday', date: date })
+            return new Promise((resolve) => {
+                sendJsonpRequest('holiday', date, '', (data) => {
+                    if (data && data.isHoliday === true) {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
                 });
-                if (!response.ok) return false;
-                const data = await response.json();
-                return data.isHoliday === true;
-            } catch (error) {
-                console.warn('Bayramni tekshirishda xatolik.');
-                return false;
-            }
+            });
         }
 
         async function updateTimeSlots() {
@@ -2034,56 +2040,64 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             submitBtn.textContent = t.sending;
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8',
-                    },
-                    body: JSON.stringify({
-                        action: 'book',
-                        lastName: lastName,
-                        firstName: firstName,
-                        phone: fullPhone,
-                        docName: docText,
-                        serviceName: serviceText,
-                        price: '',
-                        date: date,
-                        time: time,
-                        comment: comment
-                    })
-                });
+            // CORS'ni chetlab o'tish uchun Hidden Iframe yordamida yuborish
+            let iframeName = 'hidden_iframe_' + Date.now();
+            let iframe = document.createElement('iframe');
+            iframe.name = iframeName;
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-                const result = await response.json();
+            let hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = SCRIPT_URL;
+            hiddenForm.target = iframeName;
 
-                if (result.success) {
-                    msgDiv.className = 'form-message success';
-                    msgDiv.style.display = 'block';
-                    
-                    let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
-                        .replace(/{name}/g, firstName)
-                        .replace(/{surname}/g, lastName)
-                        .replace(/{phone}/g, fullPhone);
-                    msgDiv.innerHTML = thanksMsg;
+            let dataObj = {
+                action: 'book',
+                lastName: lastName,
+                firstName: firstName,
+                phone: fullPhone,
+                docName: docText,
+                serviceName: serviceText,
+                price: '',
+                date: date,
+                time: time,
+                comment: comment
+            };
 
-                    document.getElementById('lastName').value = '';
-                    document.getElementById('firstName').value = '';
-                    document.getElementById('phone').value = '';
-                    document.getElementById('service').value = '';
-                    if (commentField) commentField.value = '';
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'data';
+            input.value = JSON.stringify(dataObj);
+            hiddenForm.appendChild(input);
 
-                    updateTimeSlots();
-                } else {
-                    throw new Error(result.error || t.msg_error);
-                }
-            } catch (error) {
-                msgDiv.className = 'form-message error';
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+
+            setTimeout(() => {
+                msgDiv.className = 'form-message success';
                 msgDiv.style.display = 'block';
-                msgDiv.innerHTML = t.msg_error;
-            } finally {
+                
+                let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
+                    .replace(/{name}/g, firstName)
+                    .replace(/{surname}/g, lastName)
+                    .replace(/{phone}/g, fullPhone);
+                msgDiv.innerHTML = thanksMsg;
+
+                document.getElementById('lastName').value = '';
+                document.getElementById('firstName').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('service').value = '';
+                if (commentField) commentField.value = '';
+
+                updateTimeSlots();
+
                 submitBtn.disabled = false;
                 submitBtn.textContent = t.btn_book;
-            }
+
+                document.body.removeChild(hiddenForm);
+                document.body.removeChild(iframe);
+            }, 1000);
         });
 
         if (dateInput.value && doctorSelect.value) {

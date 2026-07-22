@@ -2074,14 +2074,16 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 msgDiv.className = 'form-message success';
                 msgDiv.style.display = 'block';
+                msgDiv.style.opacity = '1';
                 
-                // Xatolik oldini olish uchun String() ga o'rab ishlatildi
                 let rawThanks = (t && t.msg_thanks) ? t.msg_thanks : 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
                 let thanksMsg = String(rawThanks)
                     .replace(/{name}/g, firstName)
                     .replace(/{surname}/g, lastName)
                     .replace(/{phone}/g, fullPhone);
                 msgDiv.innerHTML = thanksMsg;
+                
+                msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
                 document.getElementById('lastName').value = '';
                 document.getElementById('firstName').value = '';
@@ -2089,13 +2091,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('service').value = '';
                 if (commentField) commentField.value = '';
 
-                updateTimeSlots();
-
                 submitBtn.disabled = false;
                 submitBtn.textContent = t.btn_book || 'Записаться';
 
-                document.body.removeChild(hiddenForm);
-                document.body.removeChild(iframe);
+                setTimeout(() => {
+                    updateTimeSlots();
+                }, 500);
+
+                try {
+                    document.body.removeChild(hiddenForm);
+                    document.body.removeChild(iframe);
+                } catch (err) {}
             }, 1000);
         });
 

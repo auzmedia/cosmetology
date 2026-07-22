@@ -716,7 +716,25 @@
             .contacts__inner { flex-direction: column; }
             .contacts__map { min-height: 250px; }
         }
+        .mobile-lang-wrapper { display: none; }
         @media (max-width: 768px) {
+             .lang-selector-desktop { display: none; }
+             .mobile-lang-wrapper { 
+                display: block; 
+                margin-top: 15px; 
+                border-top: 1px solid var(--border-color); 
+                padding-top: 15px; 
+                width: 100%; 
+                text-align: center; 
+             }
+            .mobile-lang-wrapper select { 
+                padding: 8px 12px; 
+                border-radius: 10px; 
+                font-size: 1rem; 
+                background: var(--blue-bg); 
+                border: none; 
+                outline: none;
+            }
             .nav { display: none; }
             .nav.active {
                 display: block;
@@ -762,14 +780,15 @@
     </style>
 </head>
 <body>
-    <div class="lang-selector">
-        <span class="lang-icon">🌐</span>
-        <select id="langSelect">
-            <option value="kg">🇰🇬 Кыргызча</option>
-            <option value="ru">🇷🇺 Русский</option>
-            <option value="en">🇬🇧 English</option>
-        </select>
-    </div>
+    <!-- Yuqoridagi asosiy Desktop til tanlash -->
+<div class="lang-selector lang-selector-desktop">
+    <span class="lang-icon">🌐</span>
+    <select id="langSelectDesktop">
+        <option value="ru" selected>🇷🇺 Русский</option>
+        <option value="kg">🇰🇬 Кыргызча</option>
+        <option value="en">🇬🇧 English</option>
+    </select>
+</div>
 
     <header class="header" role="banner">
         <div class="container header__inner">
@@ -785,6 +804,13 @@
                     <li><a href="#video-carousel" data-lang="nav_reviews">Отзывы</a></li>
                     <li><a href="#booking" data-lang="nav_booking">Запись</a></li>
                     <li><a href="#contacts" data-lang="nav_contacts">Контакты</a></li>
+                    <li class="mobile-lang-wrapper">
+            <select id="langSelectMobile" class="lang-selector-select">
+                <option value="ru" selected>🇷🇺 Русский</option>
+                <option value="kg">🇰🇬 Кыргызча</option>
+                <option value="en">🇬🇧 English</option>
+            </select>
+        </li>
                 </ul>
             </nav>
             <button class="burger" aria-label="Открыть меню" aria-expanded="false">
@@ -1218,38 +1244,38 @@
                             <label for="doctor" data-lang="label_doctor">Врач <span class="required">*</span></label>
                             <select id="doctor" name="doctor" required>
                                 <option value="" data-lang="select_doctor">Выберите врача</option>
-                                <option value="Азиз Абдиев">Азиз Абдиев — Хирург-имплантолог</option>
-                                <option value="Айнура Абдылдаева">Айнура Абдылдаева — Терапевт</option>
-                                <option value="Бекболот Маматов">Бекболот Маматов — Ортодонт</option>
-                                <option value="Гульмира Кыдырова">Гульмира Кыдырова — Детский стоматолог</option>
-                                <option value="Жениш Осмонов">Жениш Осмонов — Ортопед</option>
-                                <option value="Чолпон Садыкова">Чолпон Садыкова — Пародонтолог</option>
+                                <option value="doc1" data-docid="doc1">Азиз Абдиев — Хирург-имплантолог</option>
+                                <option value="doc2" data-docid="doc2">Айнура Абдылдаева — Терапевт</option>
+                                <option value="doc3" data-docid="doc3">Бекболот Маматов — Ортодонт</option>
+                                <option value="doc4" data-docid="doc4">Гульмира Кыдырова — Детский стоматолог</option>
+                                <option value="doc5" data-docid="doc5">Жениш Осмонов — Ортопед</option>
+                                <option value="doc6" data-docid="doc6">Чолпон Садыкова — Пародонтолог</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="service" data-lang="label_service">Услуга <span class="required">*</span></label>
                             <select id="service" name="service" required>
                                 <option value="" data-lang="select_service">Выберите услугу</option>
-                                <option value="Консультация с составлением плана лечения">Консультация с составлением плана лечения</option>
-                                <option value="Рентген 1 зуба">Рентген 1 зуба</option>
-                                <option value="Профессиональная гигиена (без Air Flow)">Профессиональная гигиена (без Air Flow)</option>
-                                <option value="Профессиональная гигиена (с Air Flow)">Профессиональная гигиена (с Air Flow)</option>
-                                <option value="Лечение кариеса зуба">Лечение кариеса зуба</option>
-                                <option value="Художественная реставрация зуба">Художественная реставрация зуба</option>
-                                <option value="Лечение 1 корневого канала">Лечение 1 корневого канала</option>
-                                <option value="Лечение 2 корневого канала">Лечение 2 корневого канала</option>
-                                <option value="Лечение 3 корневого канала">Лечение 3 корневого канала</option>
-                                <option value="Лечение дополнительного канала">Лечение дополнительного канала</option>
-                                <option value="Извлечение обломка инструмента из канала">Извлечение обломка инструмента из канала</option>
-                                <option value="Установка стекловолоконного штифта">Установка стекловолоконного штифта</option>
-                                <option value="Временная коронка (1 шт.)">Временная коронка (1 шт.)</option>
-                                <option value="Керамическая коронка (E-max)">Керамическая коронка (E-max)</option>
-                                <option value="Металлокерамическая коронка">Металлокерамическая коронка</option>
-                                <option value="Металлокерамическая коронка на имплантате">Металлокерамическая коронка на имплантате</option>
-                                <option value="Цирконовая коронка">Цирконовая коронка</option>
-                                <option value="Полный съемный протез">Полный съемный протез</option>
-                                <option value="Цирконовая коронка на имплантате">Цирконовая коронка на имплантате</option>
-                                <option value="Удаление зуба">Удаление зуба</option>
+                                <option value="serv1" data-price="500 сом">Консультация с составлением плана лечения</option>
+                                <option value="serv2" data-price="200 сом">Рентген 1 зуба</option>
+                                <option value="serv3" data-price="3000 сом">Профессиональная гигиена (без Air Flow)</option>
+                                <option value="serv4" data-price="4000 сом">Профессиональная гигиена (с Air Flow)</option>
+                                <option value="serv5" data-price="2000-3500 сом">Лечение кариеса зуба</option>
+                                <option value="serv6" data-price="2500-4000 сом">Художественная реставрация зуба</option>
+                                <option value="serv7" data-price="1000 сом">Лечение 1 корневого канала</option>
+                                <option value="serv8" data-price="1500 сом">Лечение 2 корневого канала</option>
+                                <option value="serv9" data-price="2000 сом">Лечение 3 корневого канала</option>
+                                <option value="serv10" data-price="700 сом">Лечение дополнительного канала</option>
+                                <option value="serv11" data-price="3000 сом">Извлечение обломка инструмента из канала</option>
+                                <option value="serv12" data-price="500 сом">Установка стекловолоконного штифта</option>
+                                <option value="serv13" data-price="1000 сом">Временная коронка (1 шт.)</option>
+                                <option value="serv14" data-price="13000 сом">Керамическая коронка (E-max)</option>
+                                <option value="serv15" data-price="5000 сом">Металлокерамическая коронка</option>
+                                <option value="serv16" data-price="9000 сом">Металлокерамическая коронка на имплантате</option>
+                                <option value="serv17" data-price="11000 сом">Цирконовая коронка</option>
+                                <option value="serv18" data-price="15000 сом">Полный съемный протез</option>
+                                <option value="serv19" data-price="14000 сом">Цирконовая коронка на имплантате</option>
+                                <option value="serv20" data-price="1000-5000 сом">Удаление зуба</option>
                             </select>
                         </div>
                     </div>
@@ -1342,408 +1368,449 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // ===== ПЕРЕВОДЫ (kg — по умолчанию, ru, en) =====
-        const translations = {
-            kg: {
-                logo: 'Галерея <span class="logo__highlight">жылмаюу</span>',
-                slogan: 'Кооз жылмаюу ушул жерден башталат',
-                nav_about: 'Биз жөнүндө',
-                nav_price: 'Баалар',
-                nav_doctors: 'Дарыгерлер',
-                nav_reviews: 'Пикирлер',
-                nav_booking: 'Жазылуу',
-                nav_contacts: 'Байланыш',
-                hero_badge: 'Оштун эң популярдуу стоматологиясы',
-                hero_title: 'Кооз жылмаюу <br />ушул жерден <span class="highlight">башталат</span>',
-                hero_subtitle: 'Оштун борборундагы заманбап стоматология. Дарылоо, имплантация, брекеттер жана эстетика — баары бир клиникада.',
-                feature1: '15 түрдүү кызмат',
-                feature2: '6 тажрыйбалуу дарыгер',
-                feature3: 'Заманбап жабдуулар',
-                feature4: 'Орточо баалар',
-                feature5: '5000+ канааттандырылган бейтаптар',
-                btn_book: 'Жазылуу',
-                btn_price: 'Баа тизмеси',
-                reviews: 'пикирлер',
-                why_us: 'Эмне үчүн биз',
-                popular_title: 'Шаардын эң популярдуу клиникасы',
-                adv_1_title: '15 кызмат',
-                adv_1_desc: 'Стоматологиялык кызматтардын толук спектри',
-                adv_2_title: 'Орточо баалар',
-                adv_2_desc: 'Сапатты жоготпостон жеткиликтүү баа',
-                adv_3_title: '6 дарыгер',
-                adv_3_desc: 'Жогорку билимдүү тажрыйбалуу адистер',
-                adv_4_title: 'Заманбап жабдуулар',
-                adv_4_desc: 'Дүйнөлүк деңгээлдеги диагностика жана дарылоо',
-                adv_5_title: 'Оорусаз дарылоо',
-                adv_5_desc: 'Заманбап анестезия жана ыңгайлуулук',
-                adv_6_title: 'Жогорку рейтинг',
-                adv_6_desc: '5000+ пикирлердин негизинде 4.9',
-                about_label: 'Клиника жөнүндө',
-                about_title: 'Эмне үчүн <span class="highlight">Галерея жылмаюу</span> тандашат',
-                about_text1: '"Галерея жылмаюу" — Оштун борборундагы заманбап стоматологиялык клиника. Биз кесипчилик тазалоодон тарта татаал имплантация жана ортодонтияга чейинки кызматтардын толук спектрин сунуштайбыз.',
-                about_text2: 'Биздин дарыгерлер — көп жылдык тажрыйбасы бар адистер, алар Европа жана Азиянын алдыңкы клиникаларында билимдерин үзгүлтүксүз жогорулатып турушат. Биз тек гана далилденген материалдарды жана акыркы муундагы жабдууларды колдонобуз.',
-                about_text3: 'Негизги принцип — ар бир бейтапка жеке мамиле жана дарылоо учурунда максималдуу ыңгайлуулук.',
-                stat_services: 'Кызмат',
-                stat_doctors: 'Дарыгер',
-                stat_patients: 'Бейтап',
-                stat_rating: 'Орточо баа',
-                exp_years: '10+ жыл',
-                exp_market: 'Кыргызстан рыногунда',
-                prices_label: 'Баалар',
-                prices_title: 'Баа <span class="highlight">тизмеси</span>',
-                cat_diagnostic: 'Консультация жана диагностика',
-                cat_hygiene: 'Гигиена жана профилактика',
-                cat_caries: 'Кариести дарылоо жана реставрация',
-                cat_endodontics: 'Тамыр каналдарын дарылоо',
-                cat_prosthetics: 'Протездөө',
-                cat_surgery: 'Хирургия',
-                price_consult: 'Дарылоо планын түзүү менен консультация',
-                price_xray: '1 тиштин рентгени',
-                price_hygiene_noair: 'Кесипчилик гигиена (Air Flow жок)',
-                price_hygiene_air: 'Кесипчилик гигиена (Air Flow менен)',
-                price_caries: 'Тиштин кариесин дарылоо',
-                price_restoration: 'Тишти көркөм реставрациялоо',
-                price_end_1: '1 тамыр каналын дарылоо',
-                price_end_2: '2 тамыр каналын дарылоо',
-                price_end_3: '3 тамыр каналын дарылоо',
-                price_end_add: 'Кошумча каналды дарылоо',
-                price_end_tool: 'Каналдан сынган аспапты алып салуу',
-                price_end_post: 'Айнек толуктоочу (анкердик, титан) штифт орнотуу',
-                price_prost_temp: 'Убактылуу коронка (1 даана)',
-                price_prost_emax: 'Керамикалык коронка (E-max, 1 даана)',
-                price_prost_metal: 'Металл-керамикалык коронка (1 даана)',
-                price_prost_metal_implant: 'Имплантаттагы металл-керамикалык коронка (1 даана)',
-                price_prost_zircon: 'Циркон коронка (1 даана)',
-                price_prost_denture: 'Толук алынуучу протез (1 жаак)',
-                price_prost_zircon_implant: 'Имплантаттагы циркон коронка (1 даана)',
-                price_surgery_extract: 'Тишти алып салуу',
-                select: 'Тандоо',
-                doctors_label: 'Дарыгерлер',
-                doctors_title: 'Тажрыйбалуу <span class="highlight">адистер</span>',
-                doc1_spec: 'Башкы дарыгер, хирург-имплантолог',
-                doc1_exp: '15 жыл тажрыйба',
-                doc2_spec: 'Терапевт-дарыгер, эндодонтист',
-                doc2_exp: '12 жыл тажрыйба',
-                doc3_spec: 'Ортодонт (брекеттер, элайнерлер)',
-                doc3_exp: '10 жыл тажрыйба',
-                doc4_spec: 'Балдар стоматологу',
-                doc4_exp: '8 жыл тажрыйба',
-                doc5_spec: 'Ортопед, протезист',
-                doc5_exp: '14 жыл тажрыйба',
-                doc6_spec: 'Пародонтолог, гигиенист',
-                doc6_exp: '9 жыл тажрыйба',
-                video_label: 'Видео пикирлер',
-                video_title: 'Канааттандырылган <span class="highlight">бейтаптар</span>',
-                booking_label: 'Жазылуу',
-                booking_title: 'Кабыл алууга <span class="highlight">жазылуу</span>',
-                booking_desc: 'Форманы толтуруңуз, биз жакынкы арада байланышып, жазылууңузду тастыктайбыз.',
-                label_lastname: 'Фамилия',
-                label_firstname: 'Аты',
-                label_phone: 'Телефон',
-                label_doctor: 'Дарыгер',
-                select_doctor: 'Дарыгерди тандаңыз',
-                label_service: 'Кызмат',
-                select_service: 'Кызматты тандаңыз',
-                label_date: 'Күнү',
-                label_time: 'Убактысы',
-                select_time: 'Убакытты тандаңыз',
-                label_comment: 'Комментарий',
-                contacts_label: 'Байланыш',
-                contacts_title: 'Биз менен <span class="highlight">байланышыңыз</span>',
-                address: 'Ош шаары, Ленин көч. 123',
-                social_label: 'БИЗДИН СОЦ ТАРМАКТАР',
-                footer_copyright: 'Галерея жылмаюу. Бардык укуктар корголгон.',
-                footer_city: 'Ош шаары, Кыргызстан',
-                msg_fill_fields: 'Сураныч, бардык милдеттүү талааларды толтуруңуз.',
-                msg_time_taken: 'Бул убакыт буга чейин ээлеп коюлган. Сураныч, башка убакытты тандаңыз.',
-                msg_success: 'Жазылуу ийгиликтүү түзүлдү! Биз сиз менен байланышабыз.',
-                msg_error: 'Серверге туташуу катасы. Интернетиңизди текшериңиз же кийин кайталап көрүңүз.',
-                msg_thanks: 'Рахмат, <span class="msg-name">{name}</span> <span class="msg-name">{surname}</span>! Биз сизге <span class="msg-phone">{phone}</span> номери аркылуу жакынкы арада байланышабыз.'
-            },
-            ru: {
-                logo: 'Галерея <span class="logo__highlight">улыбок</span>',
-                slogan: 'Красивая улыбка начинается здесь',
-                nav_about: 'О нас',
-                nav_price: 'Прайс',
-                nav_doctors: 'Врачи',
-                nav_reviews: 'Отзывы',
-                nav_booking: 'Запись',
-                nav_contacts: 'Контакты',
-                hero_badge: 'Самая популярная стоматология Оша',
-                hero_title: 'Красивая улыбка <br />начинается <span class="highlight">здесь</span>',
-                hero_subtitle: 'Современная стоматология в центре Оша. Лечение, имплантация, брекеты и эстетика — всё в одной клинике.',
-                feature1: '15 видов услуг',
-                feature2: '6 опытных врачей',
-                feature3: 'Современное оборудование',
-                feature4: 'Средние цены',
-                feature5: '5000+ довольных пациентов',
-                btn_book: 'Записаться',
-                btn_price: 'Прейскурант',
-                reviews: 'отзывов',
-                why_us: 'Почему мы',
-                popular_title: 'Самая популярная клиника города',
-                adv_1_title: '15 услуг',
-                adv_1_desc: 'Полный спектр стоматологических услуг',
-                adv_2_title: 'Средние цены',
-                adv_2_desc: 'Доступная стоимость без потери качества',
-                adv_3_title: '6 врачей',
-                adv_3_desc: 'Опытные специалисты с высшим образованием',
-                adv_4_title: 'Современное оборудование',
-                adv_4_desc: 'Диагностика и лечение на мировом уровне',
-                adv_5_title: 'Безболезненное лечение',
-                adv_5_desc: 'Современная анестезия и комфорт',
-                adv_6_title: 'Высокий рейтинг',
-                adv_6_desc: '4.9 на основе 5000+ отзывов',
-                about_label: 'О клинике',
-                about_title: 'Почему выбирают <span class="highlight">Галерею улыбок</span>',
-                about_text1: '«Галерея улыбок» — это современная стоматологическая клиника в самом центре Оша. Мы предлагаем полный спектр услуг: от профессиональной чистки до сложной имплантации и ортодонтии.',
-                about_text2: 'Наши врачи — специалисты с многолетним опытом, регулярно повышающие квалификацию в ведущих клиниках Европы и Азии. Мы используем только проверенные материалы и оборудование последнего поколения.',
-                about_text3: 'Главный принцип — индивидуальный подход к каждому пациенту и максимальный комфорт во время лечения.',
-                stat_services: 'Услуг',
-                stat_doctors: 'Врачей',
-                stat_patients: 'Пациентов',
-                stat_rating: 'Средняя оценка',
-                exp_years: '10+ лет',
-                exp_market: 'на рынке Кыргызстана',
-                prices_label: 'Цены',
-                prices_title: 'Прейскурант <span class="highlight">цен</span>',
-                cat_diagnostic: 'Консультация и диагностика',
-                cat_hygiene: 'Гигиена и профилактика',
-                cat_caries: 'Лечение кариеса и реставрация',
-                cat_endodontics: 'Лечение корневых каналов',
-                cat_prosthetics: 'Протезирование',
-                cat_surgery: 'Хирургия',
-                price_consult: 'Консультация с составлением плана лечения',
-                price_xray: 'Рентген 1 зуба',
-                price_hygiene_noair: 'Профессиональная гигиена (без Air Flow)',
-                price_hygiene_air: 'Профессиональная гигиена (с Air Flow)',
-                price_caries: 'Лечение кариеса зуба',
-                price_restoration: 'Художественная реставрация зуба',
-                price_end_1: 'Лечение 1 корневого канала',
-                price_end_2: 'Лечение 2 корневого канала',
-                price_end_3: 'Лечение 3 корневого канала',
-                price_end_add: 'Лечение дополнительного канала',
-                price_end_tool: 'Извлечение обломка инструмента из канала',
-                price_end_post: 'Установка стекловолоконного (анкерный, титановый) штифта',
-                price_prost_temp: 'Временная коронка (1 шт.)',
-                price_prost_emax: 'Керамическая коронка (E-max, 1 шт.)',
-                price_prost_metal: 'Металлокерамическая коронка (1 шт.)',
-                price_prost_metal_implant: 'Металлокерамическая коронка на имплантате (1 шт.)',
-                price_prost_zircon: 'Цирконовая коронка (1 шт.)',
-                price_prost_denture: 'Полный съемный протез (1 челюсть)',
-                price_prost_zircon_implant: 'Цирконовая коронка на имплантате (1 шт.)',
-                price_surgery_extract: 'Удаление зуба',
-                select: 'Выбрать',
-                doctors_label: 'Врачи',
-                doctors_title: 'Опытные <span class="highlight">специалисты</span>',
-                doc1_spec: 'Главный врач, хирург-имплантолог',
-                doc1_exp: '15 лет опыта',
-                doc2_spec: 'Врач-терапевт, эндодонтист',
-                doc2_exp: '12 лет опыта',
-                doc3_spec: 'Ортодонт (брекеты, элайнеры)',
-                doc3_exp: '10 лет опыта',
-                doc4_spec: 'Детский стоматолог',
-                doc4_exp: '8 лет опыта',
-                doc5_spec: 'Ортопед, протезист',
-                doc5_exp: '14 лет опыта',
-                doc6_spec: 'Пародонтолог, гигиенист',
-                doc6_exp: '9 лет опыта',
-                video_label: 'Видеоотзывы',
-                video_title: 'Довольные <span class="highlight">пациенты</span>',
-                booking_label: 'Запись',
-                booking_title: 'Запись <span class="highlight">на приём</span>',
-                booking_desc: 'Заполните форму, и мы свяжемся с вами в ближайшее время для подтверждения записи.',
-                label_lastname: 'Фамилия',
-                label_firstname: 'Имя',
-                label_phone: 'Телефон',
-                label_doctor: 'Врач',
-                select_doctor: 'Выберите врача',
-                label_service: 'Услуга',
-                select_service: 'Выберите услугу',
-                label_date: 'Дата',
-                label_time: 'Время',
-                select_time: 'Выберите время',
-                label_comment: 'Комментарий',
-                contacts_label: 'Контакты',
-                contacts_title: 'Свяжитесь <span class="highlight">с нами</span>',
-                address: 'г. Ош, ул. Ленина 123',
-                social_label: 'НАШИ СОЦ СЕТИ',
-                footer_copyright: 'Галерея улыбок. Все права защищены.',
-                footer_city: 'г. Ош, Кыргызстан',
-                msg_fill_fields: 'Пожалуйста, заполните все обязательные поля.',
-                msg_time_taken: 'Это время уже занято. Пожалуйста, выберите другое время.',
-                msg_success: 'Запись успешно создана! Мы свяжемся с вами.',
-                msg_error: 'Ошибка соединения с сервером. Проверьте интернет или попробуйте позже.',
-                msg_thanks: 'Спасибо, <span class="msg-name">{name}</span> <span class="msg-name">{surname}</span>! Мы свяжемся с вами по номеру <span class="msg-phone">{phone}</span> в ближайшее время.'
-            },
-            en: {
-                logo: 'Gallery <span class="logo__highlight">of Smiles</span>',
-                slogan: 'A beautiful smile starts here',
-                nav_about: 'About',
-                nav_price: 'Prices',
-                nav_doctors: 'Doctors',
-                nav_reviews: 'Reviews',
-                nav_booking: 'Booking',
-                nav_contacts: 'Contacts',
-                hero_badge: 'The most popular dentistry in Osh',
-                hero_title: 'A beautiful smile <br />starts <span class="highlight">here</span>',
-                hero_subtitle: 'Modern dentistry in the center of Osh. Treatment, implants, braces and aesthetics – all in one clinic.',
-                feature1: '15 types of services',
-                feature2: '6 experienced doctors',
-                feature3: 'Modern equipment',
-                feature4: 'Average prices',
-                feature5: '5000+ satisfied patients',
-                btn_book: 'Book now',
-                btn_price: 'Price list',
-                reviews: 'reviews',
-                why_us: 'Why us',
-                popular_title: 'The most popular clinic in the city',
-                adv_1_title: '15 services',
-                adv_1_desc: 'Full range of dental services',
-                adv_2_title: 'Average prices',
-                adv_2_desc: 'Affordable price without loss of quality',
-                adv_3_title: '6 doctors',
-                adv_3_desc: 'Experienced specialists with higher education',
-                adv_4_title: 'Modern equipment',
-                adv_4_desc: 'Diagnostics and treatment at the world level',
-                adv_5_title: 'Painless treatment',
-                adv_5_desc: 'Modern anesthesia and comfort',
-                adv_6_title: 'High rating',
-                adv_6_desc: '4.9 based on 5000+ reviews',
-                about_label: 'About',
-                about_title: 'Why choose <span class="highlight">Gallery of Smiles</span>',
-                about_text1: '"Gallery of Smiles" is a modern dental clinic in the very center of Osh. We offer a full range of services: from professional cleaning to complex implantation and orthodontics.',
-                about_text2: 'Our doctors are specialists with many years of experience, regularly improving their skills in leading clinics in Europe and Asia. We use only proven materials and the latest generation equipment.',
-                about_text3: 'The main principle is an individual approach to each patient and maximum comfort during treatment.',
-                stat_services: 'Services',
-                stat_doctors: 'Doctors',
-                stat_patients: 'Patients',
-                stat_rating: 'Average rating',
-                exp_years: '10+ years',
-                exp_market: 'on the market of Kyrgyzstan',
-                prices_label: 'Prices',
-                prices_title: 'Price <span class="highlight">list</span>',
-                cat_diagnostic: 'Consultation and diagnostics',
-                cat_hygiene: 'Hygiene and prevention',
-                cat_caries: 'Caries treatment and restoration',
-                cat_endodontics: 'Root canal treatment',
-                cat_prosthetics: 'Prosthetics',
-                cat_surgery: 'Surgery',
-                price_consult: 'Consultation with treatment plan',
-                price_xray: 'X-ray of 1 tooth',
-                price_hygiene_noair: 'Professional hygiene (without Air Flow)',
-                price_hygiene_air: 'Professional hygiene (with Air Flow)',
-                price_caries: 'Caries treatment of a tooth',
-                price_restoration: 'Artistic tooth restoration',
-                price_end_1: 'Treatment of 1 root canal',
-                price_end_2: 'Treatment of 2 root canals',
-                price_end_3: 'Treatment of 3 root canals',
-                price_end_add: 'Treatment of an additional canal',
-                price_end_tool: 'Extraction of a broken instrument from the canal',
-                price_end_post: 'Installation of a fiberglass (anchor, titanium) post',
-                price_prost_temp: 'Temporary crown (1 pc.)',
-                price_prost_emax: 'Ceramic crown (E-max, 1 pc.)',
-                price_prost_metal: 'Metal-ceramic crown (1 pc.)',
-                price_prost_metal_implant: 'Metal-ceramic crown on implant (1 pc.)',
-                price_prost_zircon: 'Zirconium crown (1 pc.)',
-                price_prost_denture: 'Complete removable denture (1 jaw)',
-                price_prost_zircon_implant: 'Zirconium crown on implant (1 pc.)',
-                price_surgery_extract: 'Tooth extraction',
-                select: 'Select',
-                doctors_label: 'Doctors',
-                doctors_title: 'Experienced <span class="highlight">specialists</span>',
-                doc1_spec: 'Chief physician, surgeon-implantologist',
-                doc1_exp: '15 years of experience',
-                doc2_spec: 'Therapist, endodontist',
-                doc2_exp: '12 years of experience',
-                doc3_spec: 'Orthodontist (braces, aligners)',
-                doc3_exp: '10 years of experience',
-                doc4_spec: 'Pediatric dentist',
-                doc4_exp: '8 years of experience',
-                doc5_spec: 'Orthopedist, prosthodontist',
-                doc5_exp: '14 years of experience',
-                doc6_spec: 'Periodontist, hygienist',
-                doc6_exp: '9 years of experience',
-                video_label: 'Video reviews',
-                video_title: 'Satisfied <span class="highlight">patients</span>',
-                booking_label: 'Booking',
-                booking_title: 'Book <span class="highlight">an appointment</span>',
-                booking_desc: 'Fill out the form and we will contact you shortly to confirm your appointment.',
-                label_lastname: 'Last name',
-                label_firstname: 'First name',
-                label_phone: 'Phone',
-                label_doctor: 'Doctor',
-                select_doctor: 'Select a doctor',
-                label_service: 'Service',
-                select_service: 'Select a service',
-                label_date: 'Date',
-                label_time: 'Time',
-                select_time: 'Select time',
-                label_comment: 'Comment',
-                contacts_label: 'Contacts',
-                contacts_title: 'Contact <span class="highlight">us</span>',
-                address: 'Osh city, Lenin str. 123',
-                social_label: 'OUR SOCIAL NETWORKS',
-                footer_copyright: 'Gallery of Smiles. All rights reserved.',
-                footer_city: 'Osh, Kyrgyzstan',
-                msg_fill_fields: 'Please fill in all required fields.',
-                msg_time_taken: 'This time is already taken. Please choose another time.',
-                msg_success: 'Booking created successfully! We will contact you.',
-                msg_error: 'Server connection error. Check your internet or try again later.',
-                msg_thanks: 'Thank you, <span class="msg-name">{name}</span> <span class="msg-name">{surname}</span>! We will contact you at <span class="msg-phone">{phone}</span> shortly.'
-            }
-        };
+ // Google Apps Script WEB APP URL
+const WEB_APP_URL = "YOUR_GOOGLE_SCRIPT_WEB_APP_URL"; 
 
-        // ===== ЯЗЫК =====
-        let currentLang = localStorage.getItem('lang') || 'kg';
+// --- To'liq tarjimalar obyekti ---
+const translations = {
+    kg: {
+        logo: 'Галерея <span class="logo__highlight">жылмаюу</span>',
+        slogan: 'Кооз жылмаюу ушул жерден башталат',
+        nav_about: 'Биз жөнүндө',
+        nav_price: 'Баалар',
+        nav_doctors: 'Дарыгерлер',
+        nav_reviews: 'Пикирлер',
+        nav_booking: 'Жазылуу',
+        nav_contacts: 'Байланыш',
+        hero_badge: 'Оштун эң популярдуу стоматологиясы',
+        hero_title: 'Кооз жылмаюу <br />ушул жерден <span class="highlight">башталат</span>',
+        hero_subtitle: 'Оштун борборундагы заманбап стоматология. Дарылоо, имплантация, брекеттер жана эстетика — баары бир клиникада.',
+        feature1: '15 түрдүү кызмат',
+        feature2: '6 тажрыйбалуу дарыгер',
+        feature3: 'Заманбап жабдуулар',
+        feature4: 'Орточо баалар',
+        feature5: '5000+ канааттандырылган бейтаптар',
+        btn_book: 'Жазылуу',
+        btn_price: 'Баа тизмеси',
+        reviews: 'пикирлер',
+        why_us: 'Эмне үчүн биз',
+        popular_title: 'Шаардын эң популярдуу клиникасы',
+        adv_1_title: '15 кызмат',
+        adv_1_desc: 'Стоматологиялык кызматтардын толук спектри',
+        adv_2_title: 'Орточо баалар',
+        adv_2_desc: 'Сапатты жоготпостон жеткиликтүү баа',
+        adv_3_title: '6 дарыгер',
+        adv_3_desc: 'Жогорку билимдүү тажрыйбалуу адистер',
+        adv_4_title: 'Заманбап жабдуулар',
+        adv_4_desc: 'Дүйнөлүк деңгээлдеги диагностика жана дарылоо',
+        adv_5_title: 'Оорусаз дарылоо',
+        adv_5_desc: 'Заманбап анестезия жана ыңгайлуулук',
+        adv_6_title: 'Жогорку рейтинг',
+        adv_6_desc: '5000+ пикирлердин негизинде 4.9',
+        about_label: 'Клиника жөнүндө',
+        about_title: 'Эмне үчүн <span class="highlight">Галерея жылмаюу</span> тандашат',
+        about_text1: '"Галерея жылмаюу" — Оштун борборундагы заманбап стоматологиялык клиника. Биз кесипчилик тазалоодон тарта татаал имплантация жана ортодонтияга чейинки кызматтардын толук спектрин сунуштайбыз.',
+        about_text2: 'Биздин дарыгерлер — көп жылдык тажрыйбасы бар адистер, алар Европа жана Азиянын алдыңкы клиникаларында билимдерин үзгүлтүксүз жогорулатып турушат. Биз тек гана далилденген материалдарды жана акыркы муундагы жабдууларды колдонобуз.',
+        about_text3: 'Негизги принцип — ар бир бейтапка жеке мамиле жана дарылоо учурунда максималдуу ыңгайлуулук.',
+        stat_services: 'Кызмат',
+        stat_doctors: 'Дарыгер',
+        stat_patients: 'Бейтап',
+        stat_rating: 'Орточо баа',
+        exp_years: '10+ жыл',
+        exp_market: 'Кыргызстан рыногунда',
+        prices_label: 'Баалар',
+        prices_title: 'Баа <span class="highlight">тизмеси</span>',
+        cat_diagnostic: 'Консультация жана диагностика',
+        cat_hygiene: 'Гигиена жана профилактика',
+        cat_caries: 'Кариести дарылоо жана реставрация',
+        cat_endodontics: 'Тамыр каналдарын дарылоо',
+        cat_prosthetics: 'Протездөө',
+        cat_surgery: 'Хирургия',
+        price_consult: 'Дарылоо планын түзүү менен консультация',
+        price_xray: '1 тиштин рентгени',
+        price_hygiene_noair: 'Кесипчилик гигиена (Air Flow жок)',
+        price_hygiene_air: 'Кесипчилик гигиена (Air Flow менен)',
+        price_caries: 'Тиштин кариесин дарылоо',
+        price_restoration: 'Тишти көркөм реставрациялоо',
+        price_end_1: '1 тамыр каналын дарылоо',
+        price_end_2: '2 тамыр каналын дарылоо',
+        price_end_3: '3 тамыр каналын дарылоо',
+        price_end_add: 'Кошумча каналды дарылоо',
+        price_end_tool: 'Каналдан сынган аспапты алып салуу',
+        price_end_post: 'Айнек толуктоочу (анкердик, титан) штифт орнотуу',
+        price_prost_temp: 'Убактылуу коронка (1 даана)',
+        price_prost_emax: 'Керамикалык коронка (E-max, 1 даана)',
+        price_prost_metal: 'Металл-керамикалык коронка (1 даана)',
+        price_prost_metal_implant: 'Имплантаттагы металл-керамикалык коронка (1 даана)',
+        price_prost_zircon: 'Циркон коронка (1 даана)',
+        price_prost_denture: 'Толук алынуучу протез (1 жаак)',
+        price_prost_zircon_implant: 'Имплантаттагы циркон коронка (1 даана)',
+        price_surgery_extract: 'Тишти алып салуу',
+        select: 'Тандоо',
+        doctors_label: 'Дарыгерлер',
+        doctors_title: 'Тажрыйбалуу <span class="highlight">адистер</span>',
+        doc1_spec: 'Башкы дарыгер, хирург-имплантолог',
+        doc1_exp: '15 жыл тажрыйба',
+        doc2_spec: 'Терапевт-дарыгер, эндодонтист',
+        doc2_exp: '12 жыл тажрыйба',
+        doc3_spec: 'Ортодонт (брекеттер, элайнерлер)',
+        doc3_exp: '10 жыл тажрыйба',
+        doc4_spec: 'Балдар стоматологу',
+        doc4_exp: '8 жыл тажрыйба',
+        doc5_spec: 'Ортопед, протезист',
+        doc5_exp: '14 жыл тажрыйба',
+        doc6_spec: 'Пародонтолог, гигиенист',
+        doc6_exp: '9 жыл тажрыйба',
+        video_label: 'Видео пикирлер',
+        video_title: 'Канааттандырылган <span class="highlight">бейтаптар</span>',
+        booking_label: 'Жазылуу',
+        booking_title: 'Кабыл алууга <span class="highlight">жазылуу</span>',
+        booking_desc: 'Форманы толтуруңуз, биз жакынкы арада байланышып, жазылууңузду тастыктайбыз.',
+        label_lastname: 'Фамилия',
+        label_firstname: 'Аты',
+        label_phone: 'Телефон',
+        label_doctor: 'Дарыгер',
+        select_doctor: 'Дарыгерди тандаңыз',
+        label_service: 'Кызмат',
+        select_service: 'Кызматты тандаңыз',
+        label_date: 'Күнү',
+        label_time: 'Убактысы',
+        select_time: 'Убакытты тандаңыз',
+        label_comment: 'Комментарий',
+        contacts_label: 'Байланыш',
+        contacts_title: 'Биз менен <span class="highlight">байланышыңыз</span>',
+        address: 'Ош шаары, Ленин көч. 123',
+        social_label: 'БИЗДИН СОЦ ТАРМАКТАР',
+        footer_copyright: 'Галерея жылмаюу. Бардык укуктар корголгон.',
+        footer_city: 'Ош шаары, Кыргызстан',
+        msg_fill_fields: 'Сураныч, бардык милдеттүү талааларды толтуруңуз.',
+        msg_time_taken: 'Бул убакыт буга чейин ээлеп коюлган. Сураныч, башка убакытты тандаңыз.',
+        msg_success: 'Жазылуу ийгиликтүү түзүлдү! Биз сиз менен байланышабыз.',
+        msg_error: 'Серверге туташуу катасы. Интернетиңизди текшериңиз же кийин кайталап көрүңүз.',
+        msg_thanks: (name, surname, phone) => `Рахмат, <span class="msg-name">${name}</span> <span class="msg-name">${surname}</span>! Биз сизге <span class="msg-phone">${phone}</span> номери аркылуу жакынкы арада байланышабыз.`,
+        loading: "Жүктөлүүдө...",
+        holiday: "Дем алыш күнү",
+        noTime: "Бош убакыт жок",
+        sending: "Жөнөтүлүүдө..."
+    },
+    ru: {
+        logo: 'Галерея <span class="logo__highlight">улыбок</span>',
+        slogan: 'Красивая улыбка начинается здесь',
+        nav_about: 'О нас',
+        nav_price: 'Прайс',
+        nav_doctors: 'Врачи',
+        nav_reviews: 'Отзывы',
+        nav_booking: 'Запись',
+        nav_contacts: 'Контакты',
+        hero_badge: 'Самая популярная стоматология Оша',
+        hero_title: 'Красивая улыбка <br />начинается <span class="highlight">здесь</span>',
+        hero_subtitle: 'Современная стоматология в центре Оша. Лечение, имплантация, брекеты и эстетика — всё в одной клинике.',
+        feature1: '15 видов услуг',
+        feature2: '6 опытных врачей',
+        feature3: 'Современное оборудование',
+        feature4: 'Средние цены',
+        feature5: '5000+ довольных пациентов',
+        btn_book: 'Записаться',
+        btn_price: 'Прейскурант',
+        reviews: 'отзывов',
+        why_us: 'Почему мы',
+        popular_title: 'Самая популярная клиника города',
+        adv_1_title: '15 услуг',
+        adv_1_desc: 'Полный спектр стоматологических услуг',
+        adv_2_title: 'Средние цены',
+        adv_2_desc: 'Доступная стоимость без потери качества',
+        adv_3_title: '6 врачей',
+        adv_3_desc: 'Опытные специалисты с высшим образованием',
+        adv_4_title: 'Современное оборудование',
+        adv_4_desc: 'Диагностика и лечение на мировом уровне',
+        adv_5_title: 'Безболезненное лечение',
+        adv_5_desc: 'Современная анестезия и комфорт',
+        adv_6_title: 'Высокий рейтинг',
+        adv_6_desc: '4.9 на основе 5000+ отзывов',
+        about_label: 'О клинике',
+        about_title: 'Почему выбирают <span class="highlight">Галерею улыбок</span>',
+        about_text1: '«Галерея улыбок» — это современная стоматологическая клиника в самом центре Оша. Мы предлагаем полный спектр услуг: от профессиональной чистки до сложной имплантации и ортодонтии.',
+        about_text2: 'Наши врачи — специалисты с многолетним опытом, регулярно повышающие квалификацию в ведущих клиниках Европы и Азии. Мы используем только проверенные материалы и оборудование последнего поколения.',
+        about_text3: 'Главный принцип — индивидуальный подход к каждому пациенту и максимальный комфорт во время лечения.',
+        stat_services: 'Услуг',
+        stat_doctors: 'Врачей',
+        stat_patients: 'Пациентов',
+        stat_rating: 'Средняя оценка',
+        exp_years: '10+ лет',
+        exp_market: 'на рынке Кыргызстана',
+        prices_label: 'Цены',
+        prices_title: 'Прейскурант <span class="highlight">цен</span>',
+        cat_diagnostic: 'Консультация и диагностика',
+        cat_hygiene: 'Гигиена и профилактика',
+        cat_caries: 'Лечение кариеса и реставрация',
+        cat_endodontics: 'Лечение корневых каналов',
+        cat_prosthetics: 'Протезирование',
+        cat_surgery: 'Хирургия',
+        price_consult: 'Консультация с составлением плана лечения',
+        price_xray: 'Рентген 1 зуба',
+        price_hygiene_noair: 'Профессиональная гигиена (без Air Flow)',
+        price_hygiene_air: 'Профессиональная гигиена (с Air Flow)',
+        price_caries: 'Лечение кариеса зуба',
+        price_restoration: 'Художественная реставрация зуба',
+        price_end_1: 'Лечение 1 корневого канала',
+        price_end_2: 'Лечение 2 корневого канала',
+        price_end_3: 'Лечение 3 корневого канала',
+        price_end_add: 'Лечение дополнительного канала',
+        price_end_tool: 'Извлечение обломка инструмента из канала',
+        price_end_post: 'Установка стекловолоконного (анкерный, титановый) штифта',
+        price_prost_temp: 'Временная коронка (1 шт.)',
+        price_prost_emax: 'Керамическая коронка (E-max, 1 шт.)',
+        price_prost_metal: 'Металлокерамическая коронка (1 шт.)',
+        price_prost_metal_implant: 'Металлокерамическая коронка на имплантате (1 шт.)',
+        price_prost_zircon: 'Цирконовая коронка (1 шт.)',
+        price_prost_denture: 'Полный съемный протез (1 челюсть)',
+        price_prost_zircon_implant: 'Цирконовая коронка на имплантате (1 шт.)',
+        price_surgery_extract: 'Удаление зуба',
+        select: 'Выбрать',
+        doctors_label: 'Врачи',
+        doctors_title: 'Опытные <span class="highlight">специалисты</span>',
+        doc1_spec: 'Главный врач, хирург-имплантолог',
+        doc1_exp: '15 лет опыта',
+        doc2_spec: 'Врач-терапевт, эндодонтист',
+        doc2_exp: '12 лет опыта',
+        doc3_spec: 'Ортодонт (брекеты, элайнеры)',
+        doc3_exp: '10 лет опыта',
+        doc4_spec: 'Детский стоматолог',
+        doc4_exp: '8 лет опыта',
+        doc5_spec: 'Ортопед, протезист',
+        doc5_exp: '14 лет опыта',
+        doc6_spec: 'Пародонтолог, гигиенист',
+        doc6_exp: '9 лет опыта',
+        video_label: 'Видеоотзывы',
+        video_title: 'Довольные <span class="highlight">пациенты</span>',
+        booking_label: 'Запись',
+        booking_title: 'Запись <span class="highlight">на приём</span>',
+        booking_desc: 'Заполните форму, и мы свяжемся с вами в ближайшее время для подтверждения записи.',
+        label_lastname: 'Фамилия',
+        label_firstname: 'Имя',
+        label_phone: 'Телефон',
+        label_doctor: 'Врач',
+        select_doctor: 'Выберите врача',
+        label_service: 'Услуга',
+        select_service: 'Выберите услугу',
+        label_date: 'Дата',
+        label_time: 'Время',
+        select_time: 'Выберите время',
+        label_comment: 'Комментарий',
+        contacts_label: 'Контакты',
+        contacts_title: 'Свяжитесь <span class="highlight">с нами</span>',
+        address: 'г. Ош, ул. Ленина 123',
+        social_label: 'НАШИ СОЦ СЕТИ',
+        footer_copyright: 'Галерея улыбок. Все права защищены.',
+        footer_city: 'г. Ош, Кыргызстан',
+        msg_fill_fields: 'Пожалуйста, заполните все обязательные поля.',
+        msg_time_taken: 'Это время уже занято. Пожалуйста, выберите другое время.',
+        msg_success: 'Запись успешно создана! Мы свяжемся с вами.',
+        msg_error: 'Ошибка соединения с сервером. Проверьте интернет или попробуйте позже.',
+        msg_thanks: (name, surname, phone) => `Спасибо, <span class="msg-name">${name}</span> <span class="msg-name">${surname}</span>! Мы свяжемся с вами по номеру <span class="msg-phone">${phone}</span> в ближайшее время.`,
+        loading: "Загрузка...",
+        holiday: "Выходной день",
+        noTime: "Нет свободного времени",
+        sending: "Отправка..."
+    },
+    en: {
+        logo: 'Gallery <span class="logo__highlight">of Smiles</span>',
+        slogan: 'A beautiful smile starts here',
+        nav_about: 'About',
+        nav_price: 'Prices',
+        nav_doctors: 'Doctors',
+        nav_reviews: 'Reviews',
+        nav_booking: 'Booking',
+        nav_contacts: 'Contacts',
+        hero_badge: 'The most popular dentistry in Osh',
+        hero_title: 'A beautiful smile <br />starts <span class="highlight">here</span>',
+        hero_subtitle: 'Modern dentistry in the center of Osh. Treatment, implants, braces and aesthetics – all in one clinic.',
+        feature1: '15 types of services',
+        feature2: '6 experienced doctors',
+        feature3: 'Modern equipment',
+        feature4: 'Average prices',
+        feature5: '5000+ satisfied patients',
+        btn_book: 'Book now',
+        btn_price: 'Price list',
+        reviews: 'reviews',
+        why_us: 'Why us',
+        popular_title: 'The most popular clinic in the city',
+        adv_1_title: '15 services',
+        adv_1_desc: 'Full range of dental services',
+        adv_2_title: 'Average prices',
+        adv_2_desc: 'Affordable price without loss of quality',
+        adv_3_title: '6 doctors',
+        adv_3_desc: 'Experienced specialists with higher education',
+        adv_4_title: 'Modern equipment',
+        adv_4_desc: 'Diagnostics and treatment at the world level',
+        adv_5_title: 'Painless treatment',
+        adv_5_desc: 'Modern anesthesia and comfort',
+        adv_6_title: 'High rating',
+        adv_6_desc: '4.9 based on 5000+ reviews',
+        about_label: 'About',
+        about_title: 'Why choose <span class="highlight">Gallery of Smiles</span>',
+        about_text1: '"Gallery of Smiles" is a modern dental clinic in the very center of Osh. We offer a full range of services: from professional cleaning to complex implantation and orthodontics.',
+        about_text2: 'Our doctors are specialists with many years of experience, regularly improving their skills in leading clinics in Europe and Asia. We use only proven materials and the latest generation equipment.',
+        about_text3: 'The main principle is an individual approach to each patient and maximum comfort during treatment.',
+        stat_services: 'Services',
+        stat_doctors: 'Doctors',
+        stat_patients: 'Patients',
+        stat_rating: 'Average rating',
+        exp_years: '10+ years',
+        exp_market: 'on the market of Kyrgyzstan',
+        prices_label: 'Prices',
+        prices_title: 'Price <span class="highlight">list</span>',
+        cat_diagnostic: 'Consultation and diagnostics',
+        cat_hygiene: 'Hygiene and prevention',
+        cat_caries: 'Caries treatment and restoration',
+        cat_endodontics: 'Root canal treatment',
+        cat_prosthetics: 'Prosthetics',
+        cat_surgery: 'Surgery',
+        price_consult: 'Consultation with treatment plan',
+        price_xray: 'X-ray of 1 tooth',
+        price_hygiene_noair: 'Professional hygiene (without Air Flow)',
+        price_hygiene_air: 'Professional hygiene (with Air Flow)',
+        price_caries: 'Caries treatment of a tooth',
+        price_restoration: 'Artistic tooth restoration',
+        price_end_1: 'Treatment of 1 root canal',
+        price_end_2: 'Treatment of 2 root canals',
+        price_end_3: 'Treatment of 3 root canals',
+        price_end_add: 'Treatment of an additional canal',
+        price_end_tool: 'Extraction of a broken instrument from the canal',
+        price_end_post: 'Installation of a fiberglass (anchor, titanium) post',
+        price_prost_temp: 'Temporary crown (1 pc.)',
+        price_prost_emax: 'Ceramic crown (E-max, 1 pc.)',
+        price_prost_metal: 'Metal-ceramic crown (1 pc.)',
+        price_prost_metal_implant: 'Metal-ceramic crown on implant (1 pc.)',
+        price_prost_zircon: 'Zirconium crown (1 pc.)',
+        price_prost_denture: 'Complete removable denture (1 jaw)',
+        price_prost_zircon_implant: 'Zirconium crown on implant (1 pc.)',
+        price_surgery_extract: 'Tooth extraction',
+        select: 'Select',
+        doctors_label: 'Doctors',
+        doctors_title: 'Experienced <span class="highlight">specialists</span>',
+        doc1_spec: 'Chief physician, surgeon-implantologist',
+        doc1_exp: '15 years of experience',
+        doc2_spec: 'Therapist, endodontist',
+        doc2_exp: '12 years of experience',
+        doc3_spec: 'Orthodontist (braces, aligners)',
+        doc3_exp: '10 years of experience',
+        doc4_spec: 'Pediatric dentist',
+        doc4_exp: '8 years of experience',
+        doc5_spec: 'Orthopedist, prosthodontist',
+        doc5_exp: '14 years of experience',
+        doc6_spec: 'Periodontist, hygienist',
+        doc6_exp: '9 years of experience',
+        video_label: 'Video reviews',
+        video_title: 'Satisfied <span class="highlight">patients</span>',
+        booking_label: 'Booking',
+        booking_title: 'Book <span class="highlight">an appointment</span>',
+        booking_desc: 'Fill out the form and we will contact you shortly to confirm your appointment.',
+        label_lastname: 'Last name',
+        label_firstname: 'First name',
+        label_phone: 'Phone',
+        label_doctor: 'Doctor',
+        select_doctor: 'Select a doctor',
+        label_service: 'Service',
+        select_service: 'Select a service',
+        label_date: 'Date',
+        label_time: 'Time',
+        select_time: 'Select time',
+        label_comment: 'Comment',
+        contacts_label: 'Contacts',
+        contacts_title: 'Contact <span class="highlight">us</span>',
+        address: 'Osh city, Lenin str. 123',
+        social_label: 'OUR SOCIAL NETWORKS',
+        footer_copyright: 'Gallery of Smiles. All rights reserved.',
+        footer_city: 'Osh, Kyrgyzstan',
+        msg_fill_fields: 'Please fill in all required fields.',
+        msg_time_taken: 'This time is already taken. Please choose another time.',
+        msg_success: 'Booking created successfully! We will contact you.',
+        msg_error: 'Server connection error. Check your internet or try again later.',
+        msg_thanks: (name, surname, phone) => `Thank you, <span class="msg-name">${name}</span> <span class="msg-name">${surname}</span>! We will contact you at <span class="msg-phone">${phone}</span> shortly.`,
+        loading: "Loading...",
+        holiday: "Day off",
+        noTime: "No available time",
+        sending: "Sending..."
+    }
+};
 
-        function applyLanguage(lang) {
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                const key = el.getAttribute('data-lang');
-                if (translations[lang] && translations[lang][key] !== undefined) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-                        if (el.tagName === 'SELECT') {
-                            const firstOpt = el.querySelector('option[value=""]');
-                            if (firstOpt) firstOpt.textContent = translations[lang][key];
-                        } else {
-                            el.placeholder = translations[lang][key];
-                        }
-                    } else if (el.tagName === 'OPTION') {
-                        el.textContent = translations[lang][key];
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ===== ЯЗЫК =====
+    let currentLang = localStorage.getItem('lang') || 'kg';
+
+    function applyLanguage(lang) {
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            const key = el.getAttribute('data-lang');
+            if (translations[lang] && translations[lang][key] !== undefined) {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+                    if (el.tagName === 'SELECT') {
+                        const firstOpt = el.querySelector('option[value=""]');
+                        if (firstOpt) firstOpt.textContent = translations[lang][key];
                     } else {
-                        el.innerHTML = translations[lang][key];
+                        el.placeholder = translations[lang][key];
                     }
+                } else if (el.tagName === 'OPTION') {
+                    el.textContent = translations[lang][key];
+                } else {
+                    el.innerHTML = translations[lang][key];
                 }
-            });
-            document.getElementById('langSelect').value = lang;
-            localStorage.setItem('lang', lang);
-            currentLang = lang;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applyLanguage(currentLang);
-            document.getElementById('langSelect').addEventListener('change', function() {
-                applyLanguage(this.value);
-            });
+            }
         });
+        
+        const langSelect = document.getElementById('langSelect') || document.getElementById('langSelectDesktop');
+        if (langSelect) langSelect.value = lang;
+        
+        localStorage.setItem('lang', lang);
+        currentLang = lang;
+    }
 
-        // ===== AOS =====
+    applyLanguage(currentLang);
+
+    const langDesktop = document.getElementById('langSelectDesktop') || document.getElementById('langSelect');
+    if (langDesktop) {
+        langDesktop.addEventListener('change', function() {
+            applyLanguage(this.value);
+        });
+    }
+
+    const langMobile = document.getElementById('langSelectMobile');
+    if (langMobile) {
+        langMobile.addEventListener('change', function() {
+            applyLanguage(this.value);
+        });
+    }
+
+    // ===== AOS =====
+    if (typeof AOS !== 'undefined') {
         AOS.init({ duration: 800, once: true, offset: 20 });
+    }
 
-        // ===== БУРГЕР =====
-        document.querySelector('.burger').addEventListener('click', function() {
+    // ===== БУРГЕР =====
+    const burger = document.querySelector('.burger');
+    if (burger) {
+        burger.addEventListener('click', function() {
             const nav = document.querySelector('.nav');
-            nav.classList.toggle('active');
-            this.setAttribute('aria-expanded', nav.classList.contains('active'));
+            if (nav) {
+                nav.classList.toggle('active');
+                this.setAttribute('aria-expanded', nav.classList.contains('active'));
+            }
         });
-        document.querySelectorAll('.nav__list a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelector('.nav').classList.remove('active');
-                document.querySelector('.burger').setAttribute('aria-expanded', 'false');
-            });
-        });
+    }
 
-        // ===== СТАТИСТИКА =====
-        const statNumbers = document.querySelectorAll('.stat__number[data-count]');
+    document.querySelectorAll('.nav__list a').forEach(link => {
+        link.addEventListener('click', () => {
+            const nav = document.querySelector('.nav');
+            const burgerBtn = document.querySelector('.burger');
+            if (nav) nav.classList.remove('active');
+            if (burgerBtn) burgerBtn.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // ===== СТАТИСТИКА =====
+    const statNumbers = document.querySelectorAll('.stat__number[data-count]');
+    if (statNumbers.length > 0) {
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1765,8 +1832,10 @@
             });
         }, { threshold: 0.5 });
         statNumbers.forEach(el => statsObserver.observe(el));
+    }
 
-        // ===== ВИДЕО-КАРУСЕЛЬ =====
+    // ===== ВИДЕО-КАРУСЕЛЬ =====
+    if (document.querySelector('.videoSwiper')) {
         new Swiper('.videoSwiper', {
             slidesPerView: 1,
             spaceBetween: 20,
@@ -1776,311 +1845,325 @@
             loop: true,
             autoplay: { delay: 5000, disableOnInteraction: true },
         });
+    }
 
-        // ===== КНОПКИ "ВЫБРАТЬ" =====
-        document.querySelectorAll('.btn--select').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const serviceName = this.getAttribute('data-service');
-                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+    // ===== КНОПКИ "ВЫБРАТЬ" =====
+    document.querySelectorAll('.btn--select').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const serviceName = this.getAttribute('data-service');
+            const bookingSec = document.getElementById('booking');
+            if (bookingSec) {
+                bookingSec.scrollIntoView({ behavior: 'smooth' });
                 setTimeout(() => {
                     const serviceSelect = document.getElementById('service');
-                    for (let opt of serviceSelect.options) {
-                        if (opt.text === serviceName || opt.value === serviceName) {
-                            serviceSelect.value = opt.value;
-                            break;
+                    if (serviceSelect) {
+                        for (let opt of serviceSelect.options) {
+                            if (opt.text === serviceName || opt.value === serviceName) {
+                                serviceSelect.value = opt.value;
+                                break;
+                            }
                         }
                     }
                 }, 300);
-            });
+            }
         });
+    });
 
-        // ===== ФОРМА ЗАПИСИ (отправка через iframe, GET через fetch) =====
-        (function() {
-            const form = document.getElementById('bookingForm');
-            const timeSelect = document.getElementById('time');
-            const dateInput = document.getElementById('date');
-            const msgDiv = document.getElementById('formMessage');
-            const doctorSelect = document.getElementById('doctor');
-            const submitBtn = form.querySelector('button[type="submit"]');
+    // ===== ФОРМА ЗАПИСИ (отправка через iframe, GET через fetch) =====
+    const form = document.getElementById('bookingForm');
+    if (form) {
+        const timeSelect = document.getElementById('time');
+        const dateInput = document.getElementById('date');
+        const msgDiv = document.getElementById('formMessage');
+        const doctorSelect = document.getElementById('doctor');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
-            // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl_Li_dfdNH4VjtDJeMWUzKn9iWDge79F9dakHha-4mtp9jolQco5kUNMvTWJUAZLT/exec';
+        // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl_Li_dfdNH4VjtDJeMWUzKn9iWDge79F9dakHha-4mtp9jolQco5kUNMvTWJUAZLT/exec';
 
-            // ----- Вспомогательная функция для получения текущего времени в Бишкеке (UTC+6) -----
-            function getBishkekTime() {
-                const now = new Date();
-                const offset = 6;
-                const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
-                return localTime;
+        // ----- Вспомогательная функция для получения текущего времени в Бишкеке (UTC+6) -----
+        function getBishkekTime() {
+            const now = new Date();
+            const offset = 6;
+            const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
+            return localTime;
+        }
+
+        // ----- Форматирование телефона -----
+        function formatPhone(raw) {
+            let digits = raw.replace(/[^\d+]/g, '');
+            if (digits.startsWith('0')) {
+                digits = '+996' + digits.substring(1);
             }
-
-            // ----- Форматирование телефона -----
-            function formatPhone(raw) {
-                let digits = raw.replace(/[^\d+]/g, '');
-                if (digits.startsWith('0')) {
-                    digits = '+996' + digits.substring(1);
-                }
-                if (!digits.startsWith('+')) {
-                    if (digits.startsWith('996')) {
-                        digits = '+' + digits;
-                    } else {
-                        digits = '+996' + digits;
-                    }
-                }
-                return digits.replace(/[^+\d]/g, '');
-            }
-
-            // ----- Генерация слотов (9:00 – 17:00) -----
-            function generateTimeSlots() {
-                const slots = [];
-                for (let h = 9; h <= 17; h++) {
-                    slots.push(String(h).padStart(2, '0') + ':00');
-                }
-                return slots;
-            }
-
-            // ----- Получение занятых слотов (GET) с отключением кеша -----
-            async function fetchBookedSlots(date, doctor) {
-                try {
-                    const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor) +
-                        '&_=' + Date.now();
-                    const response = await fetch(url, {
-                        method: 'GET',
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    });
-                    if (!response.ok) return [];
-                    const data = await response.json();
-                    return data.bookedTimes || [];
-                } catch (error) {
-                    console.warn('Ошибка получения занятых слотов:', error);
-                    return [];
-                }
-            }
-
-            // ----- Проверка, является ли дата выходным (из листа Holidays) -----
-            async function isHoliday(date) {
-                try {
-                    const url = SCRIPT_URL + '?action=holiday&date=' + encodeURIComponent(date) + '&_=' + Date.now();
-                    const response = await fetch(url, {
-                        method: 'GET',
-                        headers: {
-                            'Cache-Control': 'no-cache, no-store, must-revalidate',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    });
-                    if (!response.ok) return false;
-                    const data = await response.json();
-                    return data.isHoliday === true;
-                } catch (error) {
-                    console.warn('Ошибка проверки праздника:', error);
-                    return false;
-                }
-            }
-
-            // ----- Обновление списка времени -----
-            async function updateTimeSlots() {
-                const date = dateInput.value;
-                const doctor = doctorSelect.value;
-                if (!date || !doctor) {
-                    timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') +
-                        '</option>';
-                    return;
-                }
-
-                // Проверяем, праздник ли это
-                const holiday = await isHoliday(date);
-                if (holiday) {
-                    timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') +
-                        '</option>';
-                    msgDiv.className = 'form-message error';
-                    msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
-                    return;
+            if (!digits.startsWith('+')) {
+                if (digits.startsWith('996')) {
+                    digits = '+' + digits;
                 } else {
-                    msgDiv.className = '';
-                    msgDiv.style.display = 'none';
+                    digits = '+996' + digits;
                 }
+            }
+            return digits.replace(/[^+\d]/g, '');
+        }
 
-                const bishkekNow = getBishkekTime();
-                const today = new Date(bishkekNow.getFullYear(), bishkekNow.getMonth(), bishkekNow.getDate());
-                const selected = new Date(date + 'T00:00:00');
+        // ----- Генерация слотов (9:00 – 17:00) -----
+        function generateTimeSlots() {
+            const slots = [];
+            for (let h = 9; h <= 17; h++) {
+                slots.push(String(h).padStart(2, '0') + ':00');
+            }
+            return slots;
+        }
 
-                let slots = generateTimeSlots();
+        // ----- Получение занятых слотов (GET) с отключением кеша -----
+        async function fetchBookedSlots(date, doctor) {
+            try {
+                const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor) + '&_=' + Date.now();
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (!response.ok) return [];
+                const data = await response.json();
+                return data.bookedTimes || [];
+            } catch (error) {
+                console.warn('Ошибка получения занятых слотов:', error);
+                return [];
+            }
+        }
 
-                // Убираем прошедшие часы для сегодняшней даты по времени Бишкек
-                if (selected.getTime() === today.getTime()) {
-                    const currentHour = bishkekNow.getHours();
-                    const currentMin = bishkekNow.getMinutes();
-                    slots = slots.filter(time => {
-                        const [h] = time.split(':').map(Number);
-                        return h > currentHour || (h === currentHour && currentMin === 0);
-                    });
-                }
+        // ----- Проверка, является ли дата выходным (из листа Holidays) -----
+        async function isHoliday(date) {
+            try {
+                const url = SCRIPT_URL + '?action=holiday&date=' + encodeURIComponent(date) + '&_=' + Date.now();
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (!response.ok) return false;
+                const data = await response.json();
+                return data.isHoliday === true;
+            } catch (error) {
+                console.warn('Ошибка проверки праздника:', error);
+                return false;
+            }
+        }
 
-                // Запрашиваем занятые слоты для выбранного врача
-                const booked = await fetchBookedSlots(date, doctor);
-                const available = slots.filter(time => !booked.includes(time));
+        // ----- Обновление списка времени -----
+        async function updateTimeSlots() {
+            const date = dateInput.value;
+            const doctor = doctorSelect.value;
+            if (!date || !doctor) {
+                timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
+                return;
+            }
 
-                const activeLang = currentLang || 'kg';
-                timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') +
-                    '</option>';
-                available.forEach(time => {
-                    const option = document.createElement('option');
-                    option.value = time;
-                    option.textContent = time;
-                    timeSelect.appendChild(option);
+            // Проверяем, праздник ли это
+            const holiday = await isHoliday(date);
+            if (holiday) {
+                timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
+                msgDiv.className = 'form-message error';
+                msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
+                msgDiv.style.display = 'block';
+                return;
+            } else {
+                msgDiv.className = '';
+                msgDiv.style.display = 'none';
+            }
+
+            const bishkekNow = getBishkekTime();
+            const today = new Date(bishkekNow.getFullYear(), bishkekNow.getMonth(), bishkekNow.getDate());
+            const selected = new Date(date + 'T00:00:00');
+
+            let slots = generateTimeSlots();
+
+            // Убираем прошедшие часы для сегодняшней даты по времени Бишкек
+            if (selected.getTime() === today.getTime()) {
+                const currentHour = bishkekNow.getHours();
+                const currentMin = bishkekNow.getMinutes();
+                slots = slots.filter(time => {
+                    const [h] = time.split(':').map(Number);
+                    return h > currentHour || (h === currentHour && currentMin === 0);
                 });
             }
 
-            // ----- Обработчики изменения даты и врача -----
-            dateInput.addEventListener('change', updateTimeSlots);
-            doctorSelect.addEventListener('change', updateTimeSlots);
+            // Запрашиваем занятые слоты для выбранного врача
+            const booked = await fetchBookedSlots(date, doctor);
+            const available = slots.filter(time => !booked.includes(time));
 
-            // ----- Минимальная дата (сегодня по Бишкеку) -----
-            const bishkekToday = getBishkekTime();
-            const todayStr = bishkekToday.toISOString().split('T')[0];
-            dateInput.setAttribute('min', todayStr);
+            const activeLang = currentLang || 'kg';
+            timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') + '</option>';
+            available.forEach(time => {
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            });
+        }
 
-            // ----- Обработчик отправки (iframe) -----
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+        // ----- Обработчики изменения даты и врача -----
+        dateInput.addEventListener('change', updateTimeSlots);
+        doctorSelect.addEventListener('change', updateTimeSlots);
 
-                const lastName = document.getElementById('lastName').value.trim();
-                const firstName = document.getElementById('firstName').value.trim();
-                const phoneRaw = document.getElementById('phone').value.trim();
-                const doctor = doctorSelect.value;
-                const service = document.getElementById('service').value;
-                const date = dateInput.value;
-                const time = timeSelect.value;
-                const comment = document.getElementById('comment').value.trim();
+        // ----- Минимальная дата (сегодня по Бишкеку) -----
+        const bishkekToday = getBishkekTime();
+        const todayStr = bishkekToday.toISOString().split('T')[0];
+        dateInput.setAttribute('min', todayStr);
 
-                const activeLang = currentLang || 'kg';
-                const t = translations[activeLang] || translations.kg;
+        // ----- Обработчик отправки (iframe) -----
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-                // Валидация
-                if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
-                    msgDiv.className = 'form-message error';
-                    msgDiv.innerHTML = t.msg_fill_fields;
-                    return;
-                }
+            const lastName = document.getElementById('lastName').value.trim();
+            const firstName = document.getElementById('firstName').value.trim();
+            const phoneRaw = document.getElementById('phone').value.trim();
+            const doctor = doctorSelect.value;
+            const service = document.getElementById('service').value;
+            const date = dateInput.value;
+            const time = timeSelect.value;
+            const commentField = document.getElementById('comment');
+            const comment = commentField ? commentField.value.trim() : '';
 
-                const fullPhone = formatPhone(phoneRaw);
+            const activeLang = currentLang || 'kg';
+            const t = translations[activeLang] || translations.kg;
 
-                // Блокируем кнопку
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Отправка...';
+            // Валидация (izohdan tashqari barchasi majburiy)
+            if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
+                msgDiv.className = 'form-message error';
+                msgDiv.style.display = 'block';
+                msgDiv.innerHTML = t.msg_fill_fields || 'Пожалуйста, заполните все обязательные поля.';
+                return;
+            }
 
-                // Создаём iframe для ответа
-                const iframe = document.createElement('iframe');
-                iframe.name = 'hiddenFrame_' + Date.now();
-                iframe.style.display = 'none';
-                document.body.appendChild(iframe);
+            const fullPhone = formatPhone(phoneRaw);
 
-                // Создаём form и отправляем через POST
-                const hiddenForm = document.createElement('form');
-                hiddenForm.method = 'POST';
-                hiddenForm.action = SCRIPT_URL;
-                hiddenForm.target = iframe.name;
-                hiddenForm.style.display = 'none';
+            // Блокируем кнопку
+            submitBtn.disabled = true;
+            submitBtn.textContent = t.sending || 'Отправка...';
 
-                const fields = {
-                    lastName: lastName,
-                    firstName: firstName,
-                    phone: fullPhone,
-                    doctor: doctor,
-                    doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
-                    service: service,
-                    serviceText: document.getElementById('service').options[document.getElementById('service')
-                        .selectedIndex].text,
-                    date: date,
-                    time: time,
-                    comment: comment,
-                    lang: activeLang
-                };
+            // Создаём iframe для ответа
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hiddenFrame_' + Date.now();
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-                for (let key in fields) {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = fields[key];
-                    hiddenForm.appendChild(input);
-                }
+            // Создаём form и отправляем через POST
+            const hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = SCRIPT_URL;
+            hiddenForm.target = iframe.name;
+            hiddenForm.style.display = 'none';
 
-                document.body.appendChild(hiddenForm);
-                hiddenForm.submit();
+            const fields = {
+                lastName: lastName,
+                firstName: firstName,
+                phone: fullPhone,
+                doctor: doctor,
+                doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
+                service: service,
+                serviceText: document.getElementById('service').options[document.getElementById('service').selectedIndex].text,
+                date: date,
+                time: time,
+                comment: comment,
+                lang: activeLang
+            };
 
-                // Обработчик сообщения от iframe
-                const messageHandler = function(event) {
-                    const data = event.data;
-                    if (data && typeof data === 'object') {
-                        if (data.type === 'BOOKING_SUCCESS') {
-                            msgDiv.className = 'form-message success';
-                            let thanksMsg = t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.';
-                            thanksMsg = thanksMsg
+            for (let key in fields) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                hiddenForm.appendChild(input);
+            }
+
+            document.body.appendChild(hiddenForm);
+            hiddenForm.submit();
+
+            // Обработчик сообщения от iframe
+            const messageHandler = function(event) {
+                const data = event.data;
+                if (data && typeof data === 'object') {
+                    if (data.type === 'BOOKING_SUCCESS') {
+                        msgDiv.className = 'form-message success';
+                        msgDiv.style.display = 'block';
+                        
+                        let thanksMsg = '';
+                        if (typeof t.msg_thanks === 'function') {
+                            thanksMsg = t.msg_thanks(firstName, lastName, fullPhone);
+                        } else {
+                            thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
                                 .replace(/{name}/g, firstName)
                                 .replace(/{surname}/g, lastName)
                                 .replace(/{phone}/g, fullPhone);
-                            msgDiv.innerHTML = thanksMsg;
-
-                            // Очистка формы
-                            document.getElementById('lastName').value = '';
-                            document.getElementById('firstName').value = '';
-                            document.getElementById('phone').value = '';
-                            document.getElementById('service').value = '';
-                            document.getElementById('comment').value = '';
-
-                            // Обновляем список слотов (убираем только что занятое время)
-                            setTimeout(() => {
-                                updateTimeSlots();
-                            }, 500);
-
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = t.btn_book || 'Записаться';
-
-                            setTimeout(() => {
-                                if (iframe.parentNode) iframe.remove();
-                                if (hiddenForm.parentNode) hiddenForm.remove();
-                            }, 1000);
-                            window.removeEventListener('message', messageHandler);
-                        } else if (data.type === 'BOOKING_ERROR') {
-                            msgDiv.className = 'form-message error';
-                            msgDiv.innerHTML = data.error || t.msg_error;
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = t.btn_book || 'Записаться';
-                            setTimeout(() => {
-                                if (iframe.parentNode) iframe.remove();
-                                if (hiddenForm.parentNode) hiddenForm.remove();
-                            }, 1000);
-                            window.removeEventListener('message', messageHandler);
                         }
-                    }
-                };
+                        msgDiv.innerHTML = thanksMsg;
 
-                window.addEventListener('message', messageHandler);
+                        // Очистка формы
+                        document.getElementById('lastName').value = '';
+                        document.getElementById('firstName').value = '';
+                        document.getElementById('phone').value = '';
+                        document.getElementById('service').value = '';
+                        if (commentField) commentField.value = '';
 
-                // Таймаут на случай, если iframe не отвечает
-                setTimeout(() => {
-                    if (iframe.parentNode) {
-                        msgDiv.className = 'form-message error';
-                        msgDiv.innerHTML = t.msg_error || 'Ошибка соединения с сервером.';
+                        // Обновляем список слотов (убираем только что занятое время)
+                        setTimeout(() => {
+                            updateTimeSlots();
+                        }, 500);
+
                         submitBtn.disabled = false;
                         submitBtn.textContent = t.btn_book || 'Записаться';
-                        if (iframe.parentNode) iframe.remove();
-                        if (hiddenForm.parentNode) hiddenForm.remove();
+
+                        setTimeout(() => {
+                            if (iframe.parentNode) iframe.remove();
+                            if (hiddenForm.parentNode) hiddenForm.remove();
+                        }, 1000);
+                        window.removeEventListener('message', messageHandler);
+
+                    } else if (data.type === 'BOOKING_ERROR') {
+                        msgDiv.className = 'form-message error';
+                        msgDiv.style.display = 'block';
+                        msgDiv.innerHTML = data.error || t.msg_error;
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = t.btn_book || 'Записаться';
+                        setTimeout(() => {
+                            if (iframe.parentNode) iframe.remove();
+                            if (hiddenForm.parentNode) hiddenForm.remove();
+                        }, 1000);
                         window.removeEventListener('message', messageHandler);
                     }
-                }, 15000);
-            });
+                }
+            };
 
-            // При загрузке страницы, если уже выбраны врач и дата – подгружаем слоты
-            if (dateInput.value && doctorSelect.value) {
-                updateTimeSlots();
-            }
-        })();
+            window.addEventListener('message', messageHandler);
+
+            // Таймаут на случай, если iframe не отвечает
+            setTimeout(() => {
+                if (iframe.parentNode) {
+                    msgDiv.className = 'form-message error';
+                    msgDiv.style.display = 'block';
+                    msgDiv.innerHTML = t.msg_error || 'Ошибка соединения с сервером.';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = t.btn_book || 'Записаться';
+                    if (iframe.parentNode) iframe.remove();
+                    if (hiddenForm.parentNode) hiddenForm.remove();
+                    window.removeEventListener('message', messageHandler);
+                }
+            }, 15000);
+        });
+
+        // При загрузке страницы, если уже выбраны врач и дата – подгружаем слоты
+        if (dateInput.value && doctorSelect.value) {
+            updateTimeSlots();
+        }
+    }
+});
     </script>
 </body>
 </html>

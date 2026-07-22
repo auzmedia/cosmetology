@@ -1369,7 +1369,7 @@
     <script>
         // ===== ПЕРЕВОДЫ (kg — по умолчанию, ru, en) =====
  // Google Apps Script WEB APP URL
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyWJ2Ub-C6wpBtoxpfZ2kkFg44jkodGmR-RfZDqJK1U_lkcWRKrjovOcp_Slt8SfelG/exec"; 
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyUr0qKs2r0_Awy2Jt2RuRhRTlN-zQi_n8GijsrCE4Ea4d9nsSmLE12pmy6F6TRNDuD/exec"; 
 
 // --- To'liq tarjimalar obyekti ---
 const translations = {
@@ -1870,269 +1870,217 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== ФОРМА ЗАПИСИ =====
-    const form = document.getElementById('bookingForm');
-    if (form) {
-        const timeSelect = document.getElementById('time');
-        const dateInput = document.getElementById('date');
-        const msgDiv = document.getElementById('formMessage');
-        const doctorSelect = document.getElementById('doctor');
-        const submitBtn = form.querySelector('button[type="submit"]');
+   // ===== ФОРМА ЗАПИСИ =====
+const form = document.getElementById('bookingForm');
+if (form) {
+    const timeSelect = document.getElementById('time');
+    const dateInput = document.getElementById('date');
+    const msgDiv = document.getElementById('formMessage');
+    const doctorSelect = document.getElementById('doctor');
+    const submitBtn = form.querySelector('button[type="submit"]');
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl_Li_dfdNH4VjtDJeMWUzKn9iWDge79F9dakHha-4mtp9jolQco5kUNMvTWJUAZLT/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl_Li_dfdNH4VjtDJeMWUzKn9iWDge79F9dakHha-4mtp9jolQco5kUNMvTWJUAZLT/exec';
 
-        function getBishkekTime() {
-            const now = new Date();
-            const offset = 6;
-            const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
-            return localTime;
+    function getBishkekTime() {
+        const now = new Date();
+        const offset = 6;
+        const localTime = new Date(now.getTime() + (now.getTimezoneOffset() + offset * 60) * 60000);
+        return localTime;
+    }
+
+    function formatPhone(raw) {
+        let digits = raw.replace(/[^\d+]/g, '');
+        if (digits.startsWith('0')) {
+            digits = '+996' + digits.substring(1);
         }
-
-        function formatPhone(raw) {
-            let digits = raw.replace(/[^\d+]/g, '');
-            if (digits.startsWith('0')) {
-                digits = '+996' + digits.substring(1);
-            }
-            if (!digits.startsWith('+')) {
-                if (digits.startsWith('996')) {
-                    digits = '+' + digits;
-                } else {
-                    digits = '+996' + digits;
-                }
-            }
-            return digits.replace(/[^+\d]/g, '');
-        }
-
-        function generateTimeSlots() {
-            const slots = [];
-            for (let h = 9; h <= 17; h++) {
-                slots.push(String(h).padStart(2, '0') + ':00');
-            }
-            return slots;
-        }
-
-        async function fetchBookedSlots(date, doctor) {
-            try {
-                const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor) + '&_=' + Date.now();
-                const response = await fetch(url, {
-                    method: 'GET',
-                    redirect: 'follow',
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (!response.ok) return [];
-                const data = await response.json();
-                return data.bookedTimes || [];
-            } catch (error) {
-                // CORS xatoligini yashirish va bo'sh array qaytarish (sayt ishdan chiqmasligi uchun)
-                console.warn('Band vaqtlarni olishda tarmoq cheklovi (CORS). Barcha vaqtlar ochiq qoldirildi.');
-                return [];
-            }
-        }
-
-        async function isHoliday(date) {
-            try {
-                const url = SCRIPT_URL + '?action=holiday&date=' + encodeURIComponent(date) + '&_=' + Date.now();
-                const response = await fetch(url, {
-                    method: 'GET',
-                    redirect: 'follow',
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (!response.ok) return false;
-                const data = await response.json();
-                return data.isHoliday === true;
-            } catch (error) {
-                console.warn('Bayramni tekshirishda tarmoq cheklovi (CORS).');
-                return false;
-            }
-        }
-
-        async function updateTimeSlots() {
-            const date = dateInput.value;
-            const doctor = doctorSelect.value;
-            if (!date || !doctor) {
-                timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
-                return;
-            }
-
-            const holiday = await isHoliday(date);
-            if (holiday) {
-                timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
-                msgDiv.className = 'form-message error';
-                msgDiv.style.display = 'block';
-                msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
-                return;
+        if (!digits.startsWith('+')) {
+            if (digits.startsWith('996')) {
+                digits = '+' + digits;
             } else {
-                msgDiv.className = '';
-                msgDiv.style.display = 'none';
+                digits = '+996' + digits;
             }
+        }
+        return digits.replace(/[^+\d]/g, '');
+    }
 
-            const bishkekNow = getBishkekTime();
-            const today = new Date(bishkekNow.getFullYear(), bishkekNow.getMonth(), bishkekNow.getDate());
-            const selected = new Date(date + 'T00:00:00');
+    function generateTimeSlots() {
+        const slots = [];
+        for (let h = 9; h <= 17; h++) {
+            slots.push(String(h).padStart(2, '0') + ':00');
+        }
+        return slots;
+    }
 
-            let slots = generateTimeSlots();
+    // CORS muammosini oldini olish uchun POST so'roviga o'tkazildi
+    async function fetchBookedSlots(date, doctor) {
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: 'getTimes', date: date, doctor: doctor })
+            });
+            if (!response.ok) return [];
+            const data = await response.json();
+            return data.bookedTimes || [];
+        } catch (error) {
+            console.warn('Band vaqtlarni olishda xatolik:', error);
+            return [];
+        }
+    }
 
-            if (selected.getTime() === today.getTime()) {
-                const currentHour = bishkekNow.getHours();
-                const currentMin = bishkekNow.getMinutes();
-                slots = slots.filter(time => {
-                    const [h] = time.split(':').map(Number);
-                    return h > currentHour || (h === currentHour && currentMin === 0);
-                });
-            }
+    async function isHoliday(date) {
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({ action: 'holiday', date: date })
+            });
+            if (!response.ok) return false;
+            const data = await response.json();
+            return data.isHoliday === true;
+        } catch (error) {
+            console.warn('Bayramni tekshirishda xatolik.');
+            return false;
+        }
+    }
 
-            const booked = await fetchBookedSlots(date, doctor);
-            const available = slots.filter(time => !booked.includes(time));
+    async function updateTimeSlots() {
+        const date = dateInput.value;
+        const doctor = doctorSelect.value;
+        if (!date || !doctor) {
+            timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
+            return;
+        }
 
-            const activeLang = currentLang || 'kg';
-            timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') + '</option>';
-            available.forEach(time => {
-                const option = document.createElement('option');
-                option.value = time;
-                option.textContent = time;
-                timeSelect.appendChild(option);
+        const holiday = await isHoliday(date);
+        if (holiday) {
+            timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
+            msgDiv.className = 'form-message error';
+            msgDiv.style.display = 'block';
+            msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
+            return;
+        } else {
+            msgDiv.className = '';
+            msgDiv.style.display = 'none';
+        }
+
+        const bishkekNow = getBishkekTime();
+        const today = new Date(bishkekNow.getFullYear(), bishkekNow.getMonth(), bishkekNow.getDate());
+        const selected = new Date(date + 'T00:00:00');
+
+        let slots = generateTimeSlots();
+
+        if (selected.getTime() === today.getTime()) {
+            const currentHour = bishkekNow.getHours();
+            const currentMin = bishkekNow.getMinutes();
+            slots = slots.filter(time => {
+                const [h] = time.split(':').map(Number);
+                return h > currentHour || (h === currentHour && currentMin === 0);
             });
         }
 
-        dateInput.addEventListener('change', updateTimeSlots);
-        doctorSelect.addEventListener('change', updateTimeSlots);
+        const booked = await fetchBookedSlots(date, doctor);
+        const available = slots.filter(time => !booked.includes(time));
 
-        const bishkekToday = getBishkekTime();
-        const todayStr = bishkekToday.toISOString().split('T')[0];
-        dateInput.setAttribute('min', todayStr);
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const lastName = document.getElementById('lastName').value.trim();
-            const firstName = document.getElementById('firstName').value.trim();
-            const phoneRaw = document.getElementById('phone').value.trim();
-            const doctor = doctorSelect.value;
-            const service = document.getElementById('service').value;
-            const date = dateInput.value;
-            const time = timeSelect.value;
-            const commentField = document.getElementById('comment');
-            const comment = commentField ? commentField.value.trim() : '';
-
-            const activeLang = currentLang || 'kg';
-            const t = translations[activeLang] || translations.kg;
-
-            if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
-                msgDiv.className = 'form-message error';
-                msgDiv.style.display = 'block';
-                msgDiv.innerHTML = t.msg_fill_fields;
-                return;
-            }
-
-            const fullPhone = formatPhone(phoneRaw);
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = t.sending;
-
-            const iframe = document.createElement('iframe');
-            iframe.name = 'hiddenFrame_' + Date.now();
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-
-            const hiddenForm = document.createElement('form');
-            hiddenForm.method = 'POST';
-            hiddenForm.action = SCRIPT_URL;
-            hiddenForm.target = iframe.name;
-            hiddenForm.style.display = 'none';
-
-            const fields = {
-                lastName: lastName,
-                firstName: firstName,
-                phone: fullPhone,
-                doctor: doctor,
-                doctorText: doctorSelect.options[doctorSelect.selectedIndex].text,
-                service: service,
-                serviceText: document.getElementById('service').options[document.getElementById('service').selectedIndex].text,
-                date: date,
-                time: time,
-                comment: comment,
-                lang: activeLang
-            };
-
-            for (let key in fields) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = fields[key];
-                hiddenForm.appendChild(input);
-            }
-
-            document.body.appendChild(hiddenForm);
-            hiddenForm.submit();
-
-            const messageHandler = function(event) {
-                const data = event.data;
-                if (data && typeof data === 'object') {
-                    if (data.type === 'BOOKING_SUCCESS') {
-                        msgDiv.className = 'form-message success';
-                        msgDiv.style.display = 'block';
-                        
-                        let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
-                            .replace(/{name}/g, firstName)
-                            .replace(/{surname}/g, lastName)
-                            .replace(/{phone}/g, fullPhone);
-                        msgDiv.innerHTML = thanksMsg;
-
-                        document.getElementById('lastName').value = '';
-                        document.getElementById('firstName').value = '';
-                        document.getElementById('phone').value = '';
-                        document.getElementById('service').value = '';
-                        if (commentField) commentField.value = '';
-
-                        setTimeout(() => {
-                            updateTimeSlots();
-                        }, 500);
-
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = t.btn_book;
-
-                        setTimeout(() => {
-                            if (iframe.parentNode) iframe.remove();
-                            if (hiddenForm.parentNode) hiddenForm.remove();
-                        }, 1000);
-                        window.removeEventListener('message', messageHandler);
-
-                    } else if (data.type === 'BOOKING_ERROR') {
-                        msgDiv.className = 'form-message error';
-                        msgDiv.style.display = 'block';
-                        msgDiv.innerHTML = data.error || t.msg_error;
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = t.btn_book;
-                        setTimeout(() => {
-                            if (iframe.parentNode) iframe.remove();
-                            if (hiddenForm.parentNode) hiddenForm.remove();
-                        }, 1000);
-                        window.removeEventListener('message', messageHandler);
-                    }
-                }
-            };
-
-            window.addEventListener('message', messageHandler);
-
-            setTimeout(() => {
-                if (iframe.parentNode) {
-                    msgDiv.className = 'form-message error';
-                    msgDiv.style.display = 'block';
-                    msgDiv.innerHTML = t.msg_error;
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = t.btn_book;
-                    if (iframe.parentNode) iframe.remove();
-                    if (hiddenForm.parentNode) hiddenForm.remove();
-                    window.removeEventListener('message', messageHandler);
-                }
-            }, 15000);
+        const activeLang = currentLang || 'kg';
+        timeSelect.innerHTML = '<option value="">' + (translations[activeLang]?.select_time || 'Выберите время') + '</option>';
+        available.forEach(time => {
+            const option = document.createElement('option');
+            option.value = time;
+            option.textContent = time;
+            timeSelect.appendChild(option);
         });
-
-        if (dateInput.value && doctorSelect.value) {
-            updateTimeSlots();
-        }
     }
-});
+
+    dateInput.addEventListener('change', updateTimeSlots);
+    doctorSelect.addEventListener('change', updateTimeSlots);
+
+    const bishkekToday = getBishkekTime();
+    const todayStr = bishkekToday.toISOString().split('T')[0];
+    dateInput.setAttribute('min', todayStr);
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const lastName = document.getElementById('lastName').value.trim();
+        const firstName = document.getElementById('firstName').value.trim();
+        const phoneRaw = document.getElementById('phone').value.trim();
+        const doctor = doctorSelect.value;
+        const service = document.getElementById('service').value;
+        const date = dateInput.value;
+        const time = timeSelect.value;
+        const commentField = document.getElementById('comment');
+        const comment = commentField ? commentField.value.trim() : '';
+
+        const activeLang = currentLang || 'kg';
+        const t = translations[activeLang] || translations.kg;
+
+        if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
+            msgDiv.className = 'form-message error';
+            msgDiv.style.display = 'block';
+            msgDiv.innerHTML = t.msg_fill_fields;
+            return;
+        }
+
+        const fullPhone = formatPhone(phoneRaw);
+        const docText = doctorSelect.options[doctorSelect.selectedIndex].text;
+        const serviceSelect = document.getElementById('service');
+        const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = t.sending;
+
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: 'book',
+                    lastName: lastName,
+                    firstName: firstName,
+                    phone: fullPhone,
+                    docName: docText,
+                    serviceName: serviceText,
+                    price: '', // Agar narx bo'lsa qo'shishingiz mumkin
+                    date: date,
+                    time: time,
+                    comment: comment
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                msgDiv.className = 'form-message success';
+                msgDiv.style.display = 'block';
+                
+                let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
+                    .replace(/{name}/g, firstName)
+                    .replace(/{surname}/g, lastName)
+                    .replace(/{phone}/g, fullPhone);
+                msgDiv.innerHTML = thanksMsg;
+
+                document.getElementById('lastName').value = '';
+                document.getElementById('firstName').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('service').value = '';
+                if (commentField) commentField.value = '';
+
+                updateTimeSlots();
+            } else {
+                throw new Error(result.error || t.msg_error);
+            }
+        } catch (error) {
+            msgDiv.className = 'form-message error';
+            msgDiv.style.display = 'block';
+            msgDiv.innerHTML = t.msg_error;
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = t.btn_book;
+        }
+    });
+
+    if (dateInput.value && doctorSelect.value) {
+        updateTimeSlots();
+    }
+}
     </script>
 </body>
 </html>

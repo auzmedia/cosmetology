@@ -1735,6 +1735,7 @@ const translations = {
     }
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ===== ЯЗЫК =====
@@ -1869,7 +1870,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== ФОРМА ЗАПИСИ (отправка через iframe, GET через fetch) =====
+    // ===== ФОРМА ЗАПИСИ =====
     const form = document.getElementById('bookingForm');
     if (form) {
         const timeSelect = document.getElementById('time');
@@ -1878,10 +1879,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const doctorSelect = document.getElementById('doctor');
         const submitBtn = form.querySelector('button[type="submit"]');
 
-        // ⚠️ ЗАМЕНИТЕ НА ВАШ URL ВЕБ-ПРИЛОЖЕНИЯ GOOGLE SCRIPT
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxl_Li_dfdNH4VjtDJeMWUzKn9iWDge79F9dakHha-4mtp9jolQco5kUNMvTWJUAZLT/exec';
 
-        // ----- Вспомогательная функция для получения текущего времени в Бишкеке (UTC+6) -----
         function getBishkekTime() {
             const now = new Date();
             const offset = 6;
@@ -1889,7 +1888,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return localTime;
         }
 
-        // ----- Форматирование телефона -----
         function formatPhone(raw) {
             let digits = raw.replace(/[^\d+]/g, '');
             if (digits.startsWith('0')) {
@@ -1905,7 +1903,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return digits.replace(/[^+\d]/g, '');
         }
 
-        // ----- Генерация слотов (9:00 – 17:00) -----
         function generateTimeSlots() {
             const slots = [];
             for (let h = 9; h <= 17; h++) {
@@ -1914,50 +1911,41 @@ document.addEventListener('DOMContentLoaded', () => {
             return slots;
         }
 
-        // ----- Получение занятых слотов (GET) с отключением кеша -----
         async function fetchBookedSlots(date, doctor) {
             try {
                 const url = SCRIPT_URL + '?date=' + encodeURIComponent(date) + '&doctor=' + encodeURIComponent(doctor) + '&_=' + Date.now();
                 const response = await fetch(url, {
                     method: 'GET',
-                    headers: {
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    }
+                    redirect: 'follow',
+                    headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) return [];
                 const data = await response.json();
                 return data.bookedTimes || [];
             } catch (error) {
-                console.warn('Ошибка получения занятых слотов:', error);
+                // CORS xatoligini yashirish va bo'sh array qaytarish (sayt ishdan chiqmasligi uchun)
+                console.warn('Band vaqtlarni olishda tarmoq cheklovi (CORS). Barcha vaqtlar ochiq qoldirildi.');
                 return [];
             }
         }
 
-        // ----- Проверка, является ли дата выходным (из листа Holidays) -----
         async function isHoliday(date) {
             try {
                 const url = SCRIPT_URL + '?action=holiday&date=' + encodeURIComponent(date) + '&_=' + Date.now();
                 const response = await fetch(url, {
                     method: 'GET',
-                    redirect: 'follow', // <-- SHUNI QO'SHISH KERAK
-                    headers: {
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    }
+                    redirect: 'follow',
+                    headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) return false;
                 const data = await response.json();
                 return data.isHoliday === true;
             } catch (error) {
-                console.warn('Ошибка проверки праздника:', error);
+                console.warn('Bayramni tekshirishda tarmoq cheklovi (CORS).');
                 return false;
             }
         }
 
-        // ----- Обновление списка времени -----
         async function updateTimeSlots() {
             const date = dateInput.value;
             const doctor = doctorSelect.value;
@@ -1966,13 +1954,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Проверяем, праздник ли это
             const holiday = await isHoliday(date);
             if (holiday) {
                 timeSelect.innerHTML = '<option value="">' + (translations[currentLang]?.select_time || 'Выберите время') + '</option>';
                 msgDiv.className = 'form-message error';
-                msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
                 msgDiv.style.display = 'block';
+                msgDiv.innerHTML = 'В этот день клиника не работает. Пожалуйста, выберите другую дату.';
                 return;
             } else {
                 msgDiv.className = '';
@@ -1985,7 +1972,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let slots = generateTimeSlots();
 
-            // Убираем прошедшие часы для сегодняшней даты по времени Бишкек
             if (selected.getTime() === today.getTime()) {
                 const currentHour = bishkekNow.getHours();
                 const currentMin = bishkekNow.getMinutes();
@@ -1995,7 +1981,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Запрашиваем занятые слоты для выбранного врача
             const booked = await fetchBookedSlots(date, doctor);
             const available = slots.filter(time => !booked.includes(time));
 
@@ -2009,16 +1994,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // ----- Обработчики изменения даты и врача -----
         dateInput.addEventListener('change', updateTimeSlots);
         doctorSelect.addEventListener('change', updateTimeSlots);
 
-        // ----- Минимальная дата (сегодня по Бишкеку) -----
         const bishkekToday = getBishkekTime();
         const todayStr = bishkekToday.toISOString().split('T')[0];
         dateInput.setAttribute('min', todayStr);
 
-        // ----- Обработчик отправки (iframe) -----
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -2035,27 +2017,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeLang = currentLang || 'kg';
             const t = translations[activeLang] || translations.kg;
 
-            // Валидация (izohdan tashqari barchasi majburiy)
             if (!lastName || !firstName || !phoneRaw || !doctor || !service || !date || !time) {
                 msgDiv.className = 'form-message error';
                 msgDiv.style.display = 'block';
-                msgDiv.innerHTML = t.msg_fill_fields || 'Пожалуйста, заполните все обязательные поля.';
+                msgDiv.innerHTML = t.msg_fill_fields;
                 return;
             }
 
             const fullPhone = formatPhone(phoneRaw);
 
-            // Блокируем кнопку
             submitBtn.disabled = true;
-            submitBtn.textContent = t.sending || 'Отправка...';
+            submitBtn.textContent = t.sending;
 
-            // Создаём iframe для ответа
             const iframe = document.createElement('iframe');
             iframe.name = 'hiddenFrame_' + Date.now();
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
 
-            // Создаём form и отправляем через POST
             const hiddenForm = document.createElement('form');
             hiddenForm.method = 'POST';
             hiddenForm.action = SCRIPT_URL;
@@ -2087,7 +2065,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(hiddenForm);
             hiddenForm.submit();
 
-            // Обработчик сообщения от iframe
             const messageHandler = function(event) {
                 const data = event.data;
                 if (data && typeof data === 'object') {
@@ -2095,31 +2072,24 @@ document.addEventListener('DOMContentLoaded', () => {
                         msgDiv.className = 'form-message success';
                         msgDiv.style.display = 'block';
                         
-                        let thanksMsg = '';
-                        if (typeof t.msg_thanks === 'function') {
-                            thanksMsg = t.msg_thanks(firstName, lastName, fullPhone);
-                        } else {
-                            thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
-                                .replace(/{name}/g, firstName)
-                                .replace(/{surname}/g, lastName)
-                                .replace(/{phone}/g, fullPhone);
-                        }
+                        let thanksMsg = (t.msg_thanks || 'Спасибо, {name} {surname}! Мы свяжемся с вами по номеру {phone}.')
+                            .replace(/{name}/g, firstName)
+                            .replace(/{surname}/g, lastName)
+                            .replace(/{phone}/g, fullPhone);
                         msgDiv.innerHTML = thanksMsg;
 
-                        // Очистка формы
                         document.getElementById('lastName').value = '';
                         document.getElementById('firstName').value = '';
                         document.getElementById('phone').value = '';
                         document.getElementById('service').value = '';
                         if (commentField) commentField.value = '';
 
-                        // Обновляем список слотов (убираем только что занятое время)
                         setTimeout(() => {
                             updateTimeSlots();
                         }, 500);
 
                         submitBtn.disabled = false;
-                        submitBtn.textContent = t.btn_book || 'Записаться';
+                        submitBtn.textContent = t.btn_book;
 
                         setTimeout(() => {
                             if (iframe.parentNode) iframe.remove();
@@ -2132,7 +2102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         msgDiv.style.display = 'block';
                         msgDiv.innerHTML = data.error || t.msg_error;
                         submitBtn.disabled = false;
-                        submitBtn.textContent = t.btn_book || 'Записаться';
+                        submitBtn.textContent = t.btn_book;
                         setTimeout(() => {
                             if (iframe.parentNode) iframe.remove();
                             if (hiddenForm.parentNode) hiddenForm.remove();
@@ -2144,14 +2114,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             window.addEventListener('message', messageHandler);
 
-            // Таймаут на случай, если iframe не отвечает
             setTimeout(() => {
                 if (iframe.parentNode) {
                     msgDiv.className = 'form-message error';
                     msgDiv.style.display = 'block';
-                    msgDiv.innerHTML = t.msg_error || 'Ошибка соединения с сервером.';
+                    msgDiv.innerHTML = t.msg_error;
                     submitBtn.disabled = false;
-                    submitBtn.textContent = t.btn_book || 'Записаться';
+                    submitBtn.textContent = t.btn_book;
                     if (iframe.parentNode) iframe.remove();
                     if (hiddenForm.parentNode) hiddenForm.remove();
                     window.removeEventListener('message', messageHandler);
@@ -2159,7 +2128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 15000);
         });
 
-        // При загрузке страницы, если уже выбраны врач и дата – подгружаем слоты
         if (dateInput.value && doctorSelect.value) {
             updateTimeSlots();
         }
